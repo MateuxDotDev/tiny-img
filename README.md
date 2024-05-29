@@ -7,6 +7,16 @@
 With TinyImg you can upload any image you want, and change it's size, format and quality.
 You will be able to either store the image in the server, download it directly or even share it with a link.
 
+## Application architecture
+
+```mermaid
+graph TD
+    A[Auth Service] <--> B[TinyImg Service]
+    A <--> C[Notification Service]
+    B <--> D[FFmpeg Service]
+    D <--> C
+```
+
 ## Table of contents
 
 - [Function requirements](#function-requirements)
