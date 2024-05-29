@@ -8,5 +8,14 @@ This project is responsible for storing and managing data for TinyImg users.
 
 > _*WIP*_
 
-
 ## ADRs
+
+- [RabbitMQ as Message Queue ](./adr/ADR1.md)
+
+## How to run
+
+You can spin up the RabbitMQ container by running the following command:
+
+```bash
+docker compose up -d
+```

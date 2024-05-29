@@ -1,0 +1,10 @@
+services:
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: ffmpeg-processor-queue
+    hostname: rabbitmq
+    ports:
+      - "15672:15672"
+      - "5672:5672"
+      - "25676:25676"
+    restart: unless-stopped

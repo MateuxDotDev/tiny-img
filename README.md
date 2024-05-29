@@ -70,7 +70,7 @@ You will be able to either store the image in the server, download it directly o
 
 ## Code quality and coverage
 
-This will be handled by SonarQube during the CI/CD pipeline. All services must meet a quota of at least 50% code coverage.
+This will be handled by SonarQube during the CI/CD pipeline. All services must meet a quota of at least **50% code coverage**.
 
 ## Communication protocols
 
