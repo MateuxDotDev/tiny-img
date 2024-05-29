@@ -14,7 +14,6 @@ type Environment struct {
 	RabbitMQConsumerName string `env:"RABBITMQ_CONSUMER_NAME"`
 	BasePath             string `env:"BASE_PATH"`
 	SupportedExtensions  string `env:"SUPPORTED_EXTENSIONS"`
-	DownscaleSizes       string `env:"DOWNSCALE_SIZES"`
 }
 
 func loadEnvironmentVars(cfg *Environment) error {
