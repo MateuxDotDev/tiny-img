@@ -10,7 +10,7 @@ You will be able to either store the image in the server, download it directly o
 ## Application architecture
 
 ```mermaid
-graph TD
+graph LR
     A[Auth Service] <--> B[TinyImg Service]
     A <--> C[Notification Service]
     B <--> D[FFmpeg Service]
