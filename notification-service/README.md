@@ -19,10 +19,6 @@ This project is responsible for notifying users about the status of their image 
 - [TypeScript as Backend Language](./adr/ADR1.md)
 - [Socket.io as Real-time Communication Tool](./adr/ADR2.md)
 
-## Routes
-
-> _*WIP*_
-
 ## SOLID
 
 > _*WIP*_

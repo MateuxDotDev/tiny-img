@@ -19,10 +19,6 @@ This project is responsible for processing and converting images using FFmpeg.
 - [Golang as Language](./adr/ADR1.md)
 - [FFmpeg as Image Processing Tool](./adr/ADR2.md)
 
-## Routes
-
-> _*WIP*_
-
 ## SOLID
 
 > _*WIP*_

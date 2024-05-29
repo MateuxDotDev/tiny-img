@@ -62,12 +62,11 @@ You will be able to either store the image in the server, download it directly o
 
 ## GoF patterns adopted
 
-- Builder
-  - Will be used on Authentication Service to build the user during the sign up process
-- Adapter
-  - Will be used on FFmpeg Service and TinyImg Service to communicate with Message Queue
-- Strategy
-  - Will be used on FFmpeg Service to process the image
+| Pattern | Reason |
+|---------|--------|
+| Builder | Will be used on Authentication Service to build the user during the sign up process |
+| Adapter | Will be used on FFmpeg Service and TinyImg Service to communicate with Message Queue |
+| Strategy | Will be used on FFmpeg Service to process the image |
 
 ## Code quality and coverage
 
@@ -75,13 +74,11 @@ This will be handled by SonarQube during the CI/CD pipeline. All services must m
 
 ## Communication protocols
 
-- REST
-  - Will be used to communicate between the user and the TinyImg Service and Authentication Service
-- WebSockets
-  - Will be used to communicate between the Notification Service and the user
-- AMQP
-  - Will be used to communicate between the TinyImg Service, FFmpeg Service, and the Message Queue
-
+| Protocol | Reason |
+|----------|--------|
+| REST | Will be used to communicate between the user and the TinyImg Service and Authentication Service |
+| WebSockets | Will be used to communicate between the Notification Service and the user |
+| AMQP | Will be used to communicate between the TinyImg Service, FFmpeg Service, and the Message Queue |
 
 ## ALM - Application Lifecycle Management
 
