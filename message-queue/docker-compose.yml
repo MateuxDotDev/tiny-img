@@ -1,8 +1,8 @@
 services:
-  rabbitmq:
+  tiny-img-queue:
     image: rabbitmq:3-management
-    container_name: ffmpeg-processor-queue
-    hostname: rabbitmq
+    container_name: tiny-img-queue
+    hostname: tiny-img-queue
     ports:
       - "15672:15672"
       - "5672:5672"

@@ -1,0 +1,15 @@
+services:
+  tiny-img-database:
+    container_name: tiny-img-database
+    image: postgres:16.3-alpine
+    hostname: tiny-img-database
+    environment:
+      - POSTGRES_DB=tiny-img
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+    restart: unless-stopped
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./ddl.sql:/docker-entrypoint-initdb.d/script.sql
+      - ./data:/var/lib/postgresql/data
