@@ -6,7 +6,15 @@ This project is responsible for storing and managing data for TinyImg users.
 
 ## How to run
 
-> _*WIP*_
+First, populate a `.env` file with the keys that can be found on [`.env.example`](./.env.example).
+
+Then, run the following command:
+
+```bash
+docker compose up
+```
+
+And you're good to go!
 
 ## Entity Relationship Diagram (ERD)
 
