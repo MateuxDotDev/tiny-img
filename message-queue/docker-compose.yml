@@ -7,4 +7,7 @@ services:
       - "15672:15672"
       - "5672:5672"
       - "25676:25676"
+    environment:
+      RABBITMQ_DEFAULT_USER: ${RABBITMQ_DEFAULT_USER}
+      RABBITMQ_DEFAULT_PASS: ${RABBITMQ_DEFAULT_PASS}
     restart: unless-stopped

@@ -1,4 +1,4 @@
-module mateux/dev/ffmpeg-processor
+module mateux/dev/ffmpeg-service
 
 go 1.22.3
 

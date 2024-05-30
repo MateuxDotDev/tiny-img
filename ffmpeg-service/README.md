@@ -12,7 +12,7 @@ This project is responsible for processing and converting images using FFmpeg.
 
 ## Design pattern
 
-- Hexagonal Architecture
+- Event Driven Architecture
 
 ## ADRs
 

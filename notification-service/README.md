@@ -12,7 +12,7 @@ This project is responsible for notifying users about the status of their image 
 
 ## Design pattern
 
-- Hexagonal Architecture
+- Event Driven Architecture
 
 ## ADRs
 

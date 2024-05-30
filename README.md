@@ -77,6 +77,7 @@ graph LR
 | Builder | Will be used on Authentication Service to build the user during the sign up process |
 | Adapter | Will be used on FFmpeg Service and TinyImg Service to communicate with Message Queue |
 | Strategy | Will be used on FFmpeg Service to process the image |
+| Singleton | Will be used on FFmpeg Service to ensure only one instance of the message queue |
 
 ## Code quality and coverage
 

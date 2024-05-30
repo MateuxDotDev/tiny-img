@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"os"
 	"reflect"
+	"sync"
 
 	"github.com/joho/godotenv"
 )
@@ -15,6 +16,11 @@ type Environment struct {
 	BasePath             string `env:"BASE_PATH"`
 	SupportedExtensions  string `env:"SUPPORTED_EXTENSIONS"`
 }
+
+var (
+	instance *Environment
+	once     sync.Once
+)
 
 func loadEnvironmentVars(cfg *Environment) error {
 	val := reflect.ValueOf(cfg).Elem()
@@ -35,12 +41,24 @@ func loadEnvironmentVars(cfg *Environment) error {
 }
 
 func NewEnvironment() (*Environment, error) {
-	godotenv.Load()
+	var err error
+	once.Do(func() {
+		godotenv.Load()
 
-	cfg := &Environment{}
-	if err := loadEnvironmentVars(cfg); err != nil {
+		instance = &Environment{}
+		err = loadEnvironmentVars(instance)
+		if err != nil {
+			instance = nil
+		}
+	})
+
+	if err != nil {
 		return nil, err
 	}
 
-	return cfg, nil
+	return instance, nil
+}
+
+func GetInstance() (*Environment, error) {
+	return NewEnvironment()
 }

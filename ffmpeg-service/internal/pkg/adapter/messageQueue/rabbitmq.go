@@ -1,6 +1,11 @@
-package rabbitmq
+package messageQueue
 
 import (
+	"log"
+	"sync"
+
+	"mateux/dev/ffmpeg-service/internal/pkg/adapter/environment"
+
 	"github.com/rabbitmq/amqp091-go"
 )
 
@@ -8,13 +13,11 @@ type RabbitMQ struct {
 	conn *amqp091.Connection
 }
 
-func NewRabbitMQ(url string) (*RabbitMQ, error) {
+func NewRabbitMQ(url string) (MessageBroker, error) {
 	conn, err := amqp091.Dial(url)
-
 	if err != nil {
 		return nil, err
 	}
-
 	return &RabbitMQ{conn: conn}, nil
 }
 
@@ -24,7 +27,7 @@ func (r *RabbitMQ) Close() {
 	}
 }
 
-func (r *RabbitMQ) Consume(queueName string, consumerId string) (<-chan amqp091.Delivery, error) {
+func (r *RabbitMQ) Consume(queueName string, consumerId string) (<-chan Message, error) {
 	ch, err := r.conn.Channel()
 	if err != nil {
 		return nil, err
@@ -55,5 +58,45 @@ func (r *RabbitMQ) Consume(queueName string, consumerId string) (<-chan amqp091.
 		return nil, err
 	}
 
-	return msgs, nil
+	messageChannel := make(chan Message)
+	go func() {
+		for d := range msgs {
+			messageChannel <- Message{
+				Body:    d.Body,
+				Headers: d.Headers,
+			}
+		}
+		close(messageChannel)
+	}()
+
+	return messageChannel, nil
+}
+
+var (
+	instance MessageBroker
+	once     sync.Once
+)
+
+func NewMessageBroker() (MessageBroker, error) {
+	var err error
+	once.Do(func() {
+		env, loadErr := environment.GetInstance()
+		if loadErr != nil {
+			log.Fatalf("Failed to load envs: %v", loadErr)
+			return
+		}
+
+		instance, err = NewRabbitMQ(env.RabbitMQURL)
+		if err != nil {
+			log.Fatalf("Failed to create RabbitMQ instance: %v", err)
+			instance = nil
+		}
+
+	})
+
+	if err != nil {
+		return nil, err
+	}
+
+	return instance, nil
 }
