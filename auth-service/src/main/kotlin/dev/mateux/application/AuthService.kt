@@ -34,7 +34,7 @@ class AuthService(
 
     @Transactional(rollbackOn = [Exception::class], value = Transactional.TxType.REQUIRED)
     fun register(username: String, email: String, password: String): String {
-        if (!isPasswordStrong(password)) throw WebApplicationException("Password is not strong enough", 400)
+        if (!isPasswordStrong(password)) throw WebApplicationException("Password is not strong enough.", 400)
 
         val salt = BcryptUtil.generateSalt(username)
         val passwordHash = BcryptUtil.generatePasswordHash(password, username, salt, iterationCount.toInt()) ?: throw WebApplicationException("Failed to hash password", 500)
