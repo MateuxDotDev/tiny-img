@@ -1,4 +1,4 @@
-# ADR 2: Swagger as API documentation tool
+# ADR 3: Swagger as API documentation tool
 
 Swagger/OpenAPI is a powerful tool for documenting APIs. It provides a standard way to describe RESTful APIs and generate interactive documentation. It is a great choice for the image processing application because it is well-suited for building microservices and has a strong ecosystem of libraries and tools.
 
