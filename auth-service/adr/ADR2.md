@@ -1,20 +1,20 @@
-# ADR 2: JWT as auth protocol
+# ADR 1: Kotlin as Backend Framework Language
 
-JWT is a widely used authentication protocol that is secure, stateless, and easy to implement. It is a great choice for the authentication service because it is well-suited for building microservices and has a strong ecosystem of libraries and tools.
+Kotlin is a modern programming language that is fully interoperable with Java. It is a great choice for building the backend of the auth service because it is well-suited for building scalable and reliable applications.
 
 ## Decision 
 
-JWT will be used as the authentication protocol for the image processing application.
+Use Kotlin as the backend framework language for the auth service.
 
 ## Rationale 
 
-JWT became the pattern adopted by the industry for authentication and authorization. It is a secure and stateless protocol that is easy to implement and has a strong ecosystem of libraries and tools that will help us build a secure and scalable authentication service.
+Easy to use, able to integrate with Java code libraries with null safety and functional programming features. Kotlin is a great choice for building the backend of the auth service because it is well-suited for building scalable and reliable applications.
 
 ## Status
+
 Proposed
 
 ## Consequences
 
-- JWT is a widely used authentication protocol that is secure, stateless, and easy to implement.
-- JWT is a great choice for the authentication service because it is well-suited for building microservices and has a strong ecosystem of libraries and tools.
-- JWT is a secure and stateless protocol that is easy to implement and has a strong ecosystem of libraries and tools that will help us build a secure and scalable authentication service.
+- Kotlin will be used for building the backend of the auth service.
+- All backend related tasks will be done using Kotlin.

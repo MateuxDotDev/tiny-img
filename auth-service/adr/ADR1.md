@@ -1,20 +1,20 @@
-# ADR 1: NestJS as Authentication Service 
+# ADR 1: Quarkus as Backend Framework
 
-NestJS is a robust and mature framework for building scalable server-side applications. It is built with TypeScript and combines elements of OOP (Object Oriented Programming), FP (Functional Programming), and FRP (Functional Reactive Programming). It is a great choice for building the authentication service because it is well-suited for building microservices and has a strong ecosystem of libraries and tools. 
+Quarkus was created to enable Java developers to create applications for a modern, cloud-native world. Quarkus is a Kubernetes-native Java framework tailored for GraalVM and HotSpot, crafted from best-of-breed Java libraries and standards. The goal is to make Java the leading platform in Kubernetes and serverless environments while offering developers a framework to address a wider range of distributed application architectures.
 
 ## Decision 
 
-NestJS will be used as the authentication service for the image processing application.
+Use Quarkus as the backend framework for the auth service.
 
 ## Rationale 
 
-NestJS already has built-in support for authentication and authorization, which will make it easier to implement the required functionality. It also has a strong ecosystem of libraries and tools that will help us build a secure and scalable authentication service.
+Simple, fast, lightweight and able to generate native executables. Quarkus is a great choice for building the backend of the auth service because it is well-suited for building scalable and reliable applications.
 
 ## Status
+
 Proposed
 
 ## Consequences
 
-- NestJS is a robust and mature framework for building scalable server-side applications.
-- NestJS is built with TypeScript and combines elements of OOP (Object Oriented Programming), FP (Functional Programming), and FRP (Functional Reactive Programming).
-- NestJS is well-suited for building microservices.
+- Quarkus will be used for building the backend of the auth service.
+- Extensions must be compatible with Quarkus.

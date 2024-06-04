@@ -1,12 +1,11 @@
 # Auth Service
 
-![NestJS](https://img.shields.io/badge/nestjs-%23E0234E.svg?style=for-the-badge&logo=nestjs&logoColor=white)
-![TypeScript](https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white)
-![Swagger](https://img.shields.io/badge/-Swagger-%23Clojure?style=for-the-badge&logo=swagger&logoColor=white)
+![Quarkus](https://img.shields.io/badge/quarkus-%234794EB.svg?style=for-the-badge&logo=quarkus&logoColor=white)
+![Kotlin](https://img.shields.io/badge/kotlin-%237F52FF.svg?style=for-the-badge&logo=kotlin&logoColor=white)
 ![Postgres](https://img.shields.io/badge/postgres-%23316192.svg?style=for-the-badge&logo=postgresql&logoColor=white)
-![JWT](https://img.shields.io/badge/JWT-black?style=for-the-badge&logo=JSON%20web%20tokens)
+![Swagger](https://img.shields.io/badge/-Swagger-%23Clojure?style=for-the-badge&logo=swagger&logoColor=white)
 
-This project is responsible for handling authentication and authorization for TinyImg users.
+This project is responsible for managing user authentication and authorization.
 
 ## Architecture
 
@@ -14,17 +13,42 @@ This project is responsible for handling authentication and authorization for Ti
 
 ## Design pattern
 
-- Clean Architecture
+- Hexagonal Architecture
 
 ## ADRs
 
-- [NestJS as Authentication Service](./adr/ADR1.md)
-- [JWT as Authentication Method](./adr/ADR2.md)
-- [Swagger for API Documentation](./adr/ADR3.md)
+- [Quarkus as Backend Framework](./adr/ADR1.md)
+- [Kotlin as Backend Framework Language](./adr/ADR2.md)
+- [Swagger as API documentation tool](./adr/ADR3.md)
 
 ## Routes
 
-> _*WIP*_
+### OpenAPI
+
+You can either use the Swagger UI or the following routes to interact with the service:
+
+```http
+GET /auth
+```
+
+### Endpoints
+- `POST /auth/register`
+  - Request body:
+    ```json
+    {
+      "username": "string",
+      "email": "string",
+      "password": "string"
+    }
+    ```
+- `POST /auth/login`
+  - Request body:
+    ```json
+    {
+      "email": "string",
+      "password": "string"
+    }
+    ```
 
 ## SOLID
 
