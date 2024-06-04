@@ -1,14 +1,18 @@
-FROM maven:3.9-eclipse-temurin-21-alpine AS build
+FROM quay.io/quarkus/ubi-quarkus-graalvmce-builder-image:22.3-java17 AS build
 
 WORKDIR /usr/src/app
 
+COPY mvnw .
+COPY .mvn .mvn
 COPY pom.xml .
 
-RUN mvn -B dependency:go-offline
+RUN ./mvnw -B dependency:go-offline
 
 COPY src src
 
-RUN mvn -Pnative clean package
+RUN cat src/main/resources/rsaPrivateKey.pem
+
+RUN ./mvnw package -Dnative
 
 FROM quay.io/quarkus/quarkus-micro-image:2.0 as runtime
 

@@ -50,6 +50,22 @@ GET /auth
     }
     ```
 
+## Generate JWT keys
+
+To generate the keys, go to the resources folder by running the following command:
+
+```shell
+cd src/main/resources
+```
+
+Then, run the following commands:
+
+```shell
+openssl genrsa -out rsaPrivateKey.pem 2048
+
+openssl rsa -pubout -in rsaPrivateKey.pem -out publicKey.pem
+```
+
 ## SOLID
 
 > _*WIP*_

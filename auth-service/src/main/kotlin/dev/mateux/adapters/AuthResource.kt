@@ -4,12 +4,10 @@ import dev.mateux.application.AuthService
 import dev.mateux.application.dto.UserLoginDto
 import dev.mateux.application.dto.UserRegisterDto
 import dev.mateux.domain.Roles
-import io.smallrye.common.annotation.RunOnVirtualThread
 import jakarta.annotation.security.PermitAll
 import jakarta.annotation.security.RolesAllowed
 import jakarta.enterprise.context.ApplicationScoped
 import jakarta.inject.Inject
-import jakarta.transaction.Transactional
 import jakarta.ws.rs.Consumes
 import jakarta.ws.rs.GET
 import jakarta.ws.rs.POST
@@ -100,7 +98,6 @@ class AuthResource(
             )
         ]
     )
-    @RunOnVirtualThread
     fun login(data: UserLoginDto): Response {
         val token = authService.authenticate(data.username, data.password)
 
