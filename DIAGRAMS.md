@@ -246,4 +246,3 @@ sequenceDiagram
     TinyImg Service->>TinyImg Service: validate share
     TinyImg Service->>User: too many shares
 ```
-x

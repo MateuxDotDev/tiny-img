@@ -156,7 +156,7 @@ class AuthResource(
         ).build()
     }
 
-    @GET()
+    @GET
     @Path("/me")
     @RolesAllowed(Roles.USER)
     @SecurityRequirement(name = "bearerAuth")
@@ -174,7 +174,7 @@ class AuthResource(
             )
         ]
     )
-    fun me(@Context ctx: SecurityContext): Response {
+        fun me(@Context ctx: SecurityContext): Response {
         val token = ctx.userPrincipal as JsonWebToken
         return Response.ok(
             mapOf(

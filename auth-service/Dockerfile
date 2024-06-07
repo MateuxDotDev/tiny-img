@@ -10,8 +10,6 @@ RUN ./mvnw -B dependency:go-offline
 
 COPY src src
 
-RUN cat src/main/resources/rsaPrivateKey.pem
-
 RUN ./mvnw package -Dnative
 
 FROM quay.io/quarkus/quarkus-micro-image:2.0 as runtime

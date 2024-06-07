@@ -57,10 +57,9 @@ graph LR
 
 | Technology | Reason | System |
 |------------|-------------|------------|
-| ![NestJS](https://img.shields.io/badge/nestjs-%23E0234E.svg?style=for-the-badge&logo=nestjs&logoColor=white)| NestJS is a powerful TypeScript framework with support for several plugins and extensions out of the box | Authentication Service |
+| ![Quarkus](https://img.shields.io/badge/quarkus-%234794EB.svg?style=for-the-badge&logo=quarkus&logoColor=white) | Quarkus is a powerful Java framework that can be used to build cloud-native applications. | Authentication, TinyImg and Notification Service |
 | ![Postgres](https://img.shields.io/badge/postgres-%23316192.svg?style=for-the-badge&logo=postgresql&logoColor=white) | A powerful, open source object-relational database system. | Database |
 | ![Swagger](https://img.shields.io/badge/-Swagger-%23Clojure?style=for-the-badge&logo=swagger&logoColor=white) | Swagger is a powerful tool for documenting APIs. | Documentation |
-| ![Laravel](https://img.shields.io/badge/laravel-%23FF2D20.svg?style=for-the-badge&logo=laravel&logoColor=white) | Laravel is a powerful PHP framework with a strong ecosystem and is simple to use | TinyImg Service |
 | ![Go](https://img.shields.io/badge/go-%2300ADD8.svg?style=for-the-badge&logo=go&logoColor=white) | Go is a strong statically typed language with a powerful standard library | FFmpeg Service |
 | ![FFmpeg](https://img.shields.io/badge/ffmpeg-%23CB2018.svg?style=for-the-badge&logo=ffmpeg&logoColor=white) | FFmpeg is a powerful multimedia framework that can decode, encode, transcode, mux, demux, stream, filter, and play almost anything that humans and machines have created. | FFmpeg Service |
 | ![RabbitMQ](https://img.shields.io/badge/Rabbitmq-FF6600?style=for-the-badge&logo=rabbitmq&logoColor=white) | RabbitMQ is a powerful message broker that can be used to implement the message queue pattern. | Message Queue |
@@ -68,7 +67,7 @@ graph LR
 | ![Docker](https://img.shields.io/badge/docker-%230db7ed.svg?style=for-the-badge&logo=docker&logoColor=white) | Docker is a powerful tool for creating, deploying, and managing containers. | Deployment |
 | ![GitHub Actions](https://img.shields.io/badge/github%20actions-%232671E5.svg?style=for-the-badge&logo=githubactions&logoColor=white) | GitHub Actions is a powerful tool for automating workflows. | CI/CD |
 | ![SonarQube](https://img.shields.io/badge/SonarQube-black?style=for-the-badge&logo=sonarqube&logoColor=4E9BCD) | SonarQube is a powerful tool for code quality and security analysis. | Code Quality |
-
+| ![Nginx](https://img.shields.io/badge/nginx-%23009639.svg?style=for-the-badge&logo=nginx&logoColor=white) | Nginx is a powerful web server that can be used to serve static files. Will be used as a load balancer. | Deployment |
 
 ## GoF patterns adopted
 

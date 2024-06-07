@@ -1,0 +1,4 @@
+include:
+  - network/docker-compose.yml
+  - database/docker-compose.yml
+  - auth-service/docker-compose.yml

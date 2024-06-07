@@ -68,4 +68,23 @@ openssl rsa -pubout -in rsaPrivateKey.pem -out publicKey.pem
 
 ## SOLID
 
-> _*WIP*_
+### Single Responsibility Principle
+
+Due to Hexagonal Architecture, the code is divided into layers, where each layer has a single responsibility.
+For example, the `UserRepositoryImpl.findByUsername` only queries the database to find a user by username.
+
+### Open/Closed Principle
+
+The code is open for extension and closed for modification. For example, the `UserRepository` interface can be extended to add new methods without changing the existing code.
+
+### Liskov Substitution Principle
+
+The code is designed to allow the use of derived classes without changing the behavior of the base class. For example, the `UserRepositoryImpl` class can be used in place of the `UserRepository` interface.
+
+### Interface Segregation Principle
+
+The code is divided into interfaces that are specific to the needs of the client. For example, the `UserRepository` interface only contains methods that are needed by the client.
+
+### Dependency Inversion Principle
+
+The code is designed to depend on abstractions rather than concrete implementations. For example, the `UserRepositoryImpl` class depends on the `UserRepository` interface.
