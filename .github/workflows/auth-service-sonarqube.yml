@@ -18,7 +18,7 @@ jobs:
     defaults:
       run:
         shell: bash
-          working-directory: ./auth-service
+        working-directory: ./auth-service
     steps:
       - uses: actions/checkout@v2
         with:
