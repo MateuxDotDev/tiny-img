@@ -10,8 +10,9 @@ import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestInstance
-import org.mockito.Mockito.mock
-import org.mockito.Mockito.`when`
+import org.mockito.ArgumentMatchers
+import org.mockito.ArgumentMatchers.eq
+import org.mockito.Mockito.*
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @DisplayName("Auth Service Test")
@@ -147,5 +148,29 @@ class AuthServiceTest {
         // Assert
         assertEquals("Invalid password", exception.message)
         assertEquals(401, exception.response.status)
+    }
+
+    @Test
+    @DisplayName("register should return a token when user is registered")
+    fun registerShouldReturnATokenWhenUserIsRegistered() {
+        // Arrange
+        val username = "username"
+        val email = "email"
+        val password = "1234Abc#"
+        val salt = "salt"
+        val passwordHash = "passwordHash"
+        val testUser = UserEntity.test(username = username, email = email, password = passwordHash, salt = salt)
+        val userDomain = testUser.toDomain()
+        `when`(bcryptUtil.generateSalt(username)).thenReturn(salt)
+        `when`(bcryptUtil.generatePasswordHash(password, username, salt, 10)).thenReturn(passwordHash)
+        `when`(userRepository.save(testUser)).thenReturn(userDomain)
+        `when`(jwtUtil.generateToken(anyString(), anyString())).thenReturn("token")
+
+        // Act
+        val result = authService.register(username, email, password)
+
+        // Assert
+        assertNotNull(result)
+        assertEquals("token", result)
     }
 }
