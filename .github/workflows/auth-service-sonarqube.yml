@@ -13,9 +13,9 @@ on:
 
 jobs:
   build:
-    name: Build
+    name: Build and analyze
     runs-on: ubuntu-latest
-      defaults:
+    defaults:
       run:
         shell: bash
           working-directory: ./auth-service
