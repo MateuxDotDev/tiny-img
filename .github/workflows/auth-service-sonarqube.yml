@@ -1,7 +1,9 @@
-name: Sonarqube Analysis
+name: Auth Service - SonarQube Analysis
 
 on:
   push:
+    paths:
+      - 'auth-service/**'
     branches:
       - main
       - develop
@@ -13,6 +15,10 @@ jobs:
   build:
     name: Build
     runs-on: ubuntu-latest
+      defaults:
+      run:
+        shell: bash
+          working-directory: ./auth-service
     steps:
       - uses: actions/checkout@v2
         with:
