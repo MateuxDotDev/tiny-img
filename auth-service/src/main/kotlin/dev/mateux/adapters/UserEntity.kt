@@ -17,11 +17,11 @@ import java.util.UUID
 open class UserEntity(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(nullable = false, updatable = false, unique = true, columnDefinition = "SERIAL PRIMARY KEY")
+    @Column(nullable = false, unique = true, columnDefinition = "SERIAL PRIMARY KEY NOT NULL")
     var id: Int? = 0,
     @Column(unique = true, nullable = false, length = 255, columnDefinition = "VARCHAR(255) UNIQUE NOT NULL")
     var username: String? = "",
-    @Column(unique = true, nullable = false, length = 255, columnDefinition = "VARCHAR(255) UNIQUE NOT NULL")
+    @Column(unique = true, nullable = false, length = 255, columnDefinition = "VARCHAR(255) UNIQUE NOT NULL CHECK (email ~* '^.+@.+\$')")
     var email: String? = "",
     @Column(nullable = false, columnDefinition = "TEXT NOT NULL")
     var password: String? = "",
@@ -31,14 +31,25 @@ open class UserEntity(
     var publicId: String? = "",
     @CreationTimestamp
     @Column(nullable = false, columnDefinition = "TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP", name = "created_at")
-    var createAt: Timestamp? = null,
+    var createdAt: Timestamp? = null,
     @UpdateTimestamp
     @Column(nullable = false, columnDefinition = "TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP", name = "updated_at")
-    var updateAt: Timestamp? = null
+    var updatedAt: Timestamp? = null
 ) {
     companion object {
         fun withoutId(username: String, email: String, password: String, salt: String): UserEntity {
             return UserEntity(null, username, email, password, salt, UUID.randomUUID().toString())
+        }
+
+        fun test(
+            id: Int? = 1,
+            username: String? = "user",
+            email: String? = "user@mail.com",
+            password: String? = "12345678",
+            salt: String? = "salt",
+            publicId: String? = "1"
+        ): UserEntity {
+            return UserEntity(id, username, email, password, salt, publicId)
         }
     }
 

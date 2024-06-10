@@ -1,7 +1,6 @@
 services:
   tiny-img-auth-service:
-    image: mateuxlucax/tiny-img:auth-service-${ENVIRONMENT}-${VERSION}
-#    image: mateuxlucax/tiny-img:auth-service-${VERSION}-${ENVIRONMENT}
+    image: mateuxlucax/tiny-img:auth-service-${VERSION}
     build:
       context: .
       dockerfile: Dockerfile

@@ -13,9 +13,10 @@ class UserRepositoryImpl(
 ): UserRepository {
     override fun findByUsername(username: String): UserEntity? {
         return try {
-            entityManager.createQuery("SELECT u FROM UserEntity u WHERE u.username = :username", UserEntity::class.java)
-            .setParameter("username", username)
-            .singleResult
+            entityManager
+                .createQuery("SELECT u FROM UserEntity u WHERE u.username = :username", UserEntity::class.java)
+                .setParameter("username", username)
+                .singleResult
         } catch (e: NoResultException) {
             null
         }
