@@ -35,7 +35,9 @@ jobs:
           restore-keys: ${{ runner.os }}-sonar
       - name: Add RSA keys to resources
         run: echo "$PUBLIC_KEY" > ./src/main/resources/publicKey.pem \
-          && echo "$PRIVATE_KEY" > ./src/main/resources/privateKey.pem
+          && echo "$PRIVATE_KEY" > ./src/main/resources/privateKey.pem \
+          && head -1 ./src/main/resources/publicKey.pem \
+          && head -1 ./src/main/resources/privateKey.pem
         env:
           PUBLIC_KEY: ${{ secrets.PUBLIC_KEY }}
           PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}
