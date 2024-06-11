@@ -2,8 +2,8 @@ name: Auth Service - SonarQube Analysis
 
 on:
   push:
-    paths:
-      - 'auth-service/**'
+    # paths:
+    #   - 'auth-service/**'
     branches:
       - main
       - develop
