@@ -1,1 +1,3 @@
 *.pem
+!test/privateKey.pem
+!test/publicKey.pem

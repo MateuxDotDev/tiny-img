@@ -34,12 +34,6 @@ jobs:
           path: ~/.sonar/cache
           key: ${{ runner.os }}-sonar
           restore-keys: ${{ runner.os }}-sonar
-      - name: Add RSA keys to resources
-        run: |
-          echo "${{ secrets.PRIVATE_KEY }}" > ./src/main/resources/privateKey.pem
-          echo "${{ secrets.PUBLIC_KEY }}" > ./src/main/resources/publicKey.pem
-          head -1 ./src/main/resources/privateKey.pem
-          head -1 ./src/main/resources/publicKey.pem
       - name: Cache Maven package
         uses: actions/cache@v4
         with:
