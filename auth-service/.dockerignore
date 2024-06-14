@@ -1,5 +1,7 @@
 *
 !src
-!pom.xml
-!mvnw
-!.mvn
+!gradlew
+!gradle
+!build.gradle.kts
+!settings.gradle.kts
+!gradle.properties

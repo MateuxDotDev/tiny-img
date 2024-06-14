@@ -88,7 +88,6 @@ class UserRepositoryImplTest {
     fun saveShouldPersistUserEntity() {
         // Arrange
         val userEntity = UserEntity.test()
-        val user = userEntity.toDomain()
 
         // Act
         userRepository.save(userEntity)
