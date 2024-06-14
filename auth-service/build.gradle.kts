@@ -2,6 +2,8 @@ plugins {
     kotlin("jvm") version "1.9.23"
     kotlin("plugin.allopen") version "1.9.23"
     id("io.quarkus")
+    id("org.sonarqube") version "3.5.0.2730"
+    id("jacoco")
 }
 
 repositories {
@@ -42,6 +44,7 @@ java {
 tasks.withType<Test> {
     systemProperty("java.util.logging.manager", "org.jboss.logmanager.LogManager")
 }
+
 allOpen {
     annotation("jakarta.ws.rs.Path")
     annotation("jakarta.enterprise.context.ApplicationScoped")
@@ -52,4 +55,10 @@ allOpen {
 tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
     kotlinOptions.jvmTarget = JavaVersion.VERSION_17.toString()
     kotlinOptions.javaParameters = true
+}
+
+sonar {
+    properties {
+        property("sonar.projectKey", "MateuxDotDev_tiny-img_AY_gwQ7jrsHxU9HD8Rkh")
+    }
 }
