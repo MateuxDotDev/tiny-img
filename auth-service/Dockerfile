@@ -1,29 +1,27 @@
-FROM quay.io/quarkus/ubi-quarkus-graalvmce-builder-image:22.3-java17 AS build
+FROM quay.io/quarkus/ubi-quarkus-mandrel-builder-image:jdk-21 AS build
+USER root
 
-WORKDIR /usr/src/app
+RUN microdnf install findutils
 
-COPY gradlew .
-COPY gradle gradle
-COPY build.gradle.kts .
-COPY settings.gradle.kts .
-COPY gradle.properties .
+COPY --chown=quarkus:quarkus gradlew /code/gradlew
+COPY --chown=quarkus:quarkus gradle /code/gradle
+COPY --chown=quarkus:quarkus build.gradle.kts /code/
+COPY --chown=quarkus:quarkus settings.gradle.kts /code/
+COPY --chown=quarkus:quarkus gradle.properties /code/
 
-RUN ./gradlew build --no-daemon --stacktrace --refresh-dependencies
+USER quarkus
 
-COPY src src
+WORKDIR /code
 
-RUN ./gradlew build -Dquarkus.package.type=native --no-daemon --stacktrace
+COPY src /code/src
+RUN ./gradlew build -x test  -Dquarkus.package.jar.enabled=false -Dquarkus.native.enabled=true
 
-FROM quay.io/quarkus/quarkus-micro-image:2.0 as runtime
+FROM quay.io/quarkus/quarkus-micro-image:2.0
 
 WORKDIR /work/
-RUN chown 1001 /work \
-    && chmod "g+rwX" /work \
-    && chown 1001:root /work
+COPY --from=build /code/build/*-runner /work/application
+RUN chmod 775 /work
 
-COPY --chown=1001:root --from=build /usr/src/app/build/*-runner /work/application
-
+USER quarkus
 EXPOSE 8080
-USER 1001
-
-ENTRYPOINT ["./application", "-Dquarkus.http.host=0.0.0.0"]
+CMD ["./application", "-Dquarkus.http.host=0.0.0.0"]

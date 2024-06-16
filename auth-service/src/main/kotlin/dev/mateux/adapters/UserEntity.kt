@@ -52,9 +52,23 @@ open class UserEntity(
         val id = id
         val username = username
         val email = email
+        val publicId = publicId
 
-        if (id == null || username == null || email == null) throw IllegalStateException("UserEntity is not valid")
+        if (id == null || username == null || email == null || publicId == null) throw IllegalStateException("UserEntity is not valid")
 
-        return User(id, username, email)
+        return User(id, username, email, publicId)
+    }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (javaClass != other?.javaClass) return false
+
+        other as UserEntity
+
+        return id == other.id
+    }
+
+    override fun hashCode(): Int {
+        return id ?: 0
     }
 }

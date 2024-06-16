@@ -10,9 +10,10 @@ import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestInstance
-import org.mockito.ArgumentMatchers
-import org.mockito.ArgumentMatchers.eq
+import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito.*
+import org.mockito.kotlin.anyOrNull
+import java.sql.SQLException
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @DisplayName("Auth Service Test")
@@ -31,8 +32,7 @@ class AuthServiceTest {
     }
 
     @Test
-    @DisplayName("authenticate should return a token when user is authenticated")
-    fun authenticateShouldReturnATokenWhenUserIsAuthenticated() {
+    fun `authenticate should return a token when user is authenticated`() {
         // Arrange
         val password = "1234Abc#"
         val publicId = "1"
@@ -53,8 +53,7 @@ class AuthServiceTest {
     }
 
     @Test
-    @DisplayName("authenticate should throw an exception when user is not found")
-    fun authenticateShouldThrowAnExceptionWhenUserIsNotFound() {
+    fun `authenticate should throw an exception when user is not found`() {
         // Arrange
         val username = "username"
         val password = "1234Abc#"
@@ -71,8 +70,7 @@ class AuthServiceTest {
     }
 
     @Test
-    @DisplayName("authenticate should throw an exception when user has no password hash")
-    fun authenticateShouldThrowAnExceptionWhenUserHasNoPasswordHash() {
+    fun `authenticate should throw an exception when user has no password hash`() {
         // Arrange
         val password = "1234Abc#"
         val testUser = UserEntity.test(password = null)
@@ -90,8 +88,7 @@ class AuthServiceTest {
     }
 
     @Test
-    @DisplayName("authenticate should throw an exception when user has no salt")
-    fun authenticateShouldThrowAnExceptionWhenUserHasNoSalt() {
+    fun `authenticate should throw an exception when user has no salt`() {
         // Arrange
         val username = "username"
         val password = "1234Abc#"
@@ -109,8 +106,7 @@ class AuthServiceTest {
     }
 
     @Test
-    @DisplayName("authenticate should throw an exception when user has no public id")
-    fun authenticateShouldThrowAnExceptionWhenUserHasNoPublicId() {
+    fun `authenticate should throw an exception when user has no public id`() {
         // Arrange
         val username = "username"
         val password = "1234Abc#"
@@ -128,8 +124,7 @@ class AuthServiceTest {
     }
 
     @Test
-    @DisplayName("authenticate should throw an exception when password is invalid")
-    fun authenticateShouldThrowAnExceptionWhenPasswordIsInvalid() {
+    fun `authenticate should throw an exception when password is invalid`() {
         // Arrange
         val username = "username"
         val password = "1234Abc#"
@@ -151,19 +146,18 @@ class AuthServiceTest {
     }
 
     @Test
-    @DisplayName("register should return a token when user is registered")
-    fun registerShouldReturnATokenWhenUserIsRegistered() {
+    fun `register should return a token when user is registered`() {
         // Arrange
         val username = "username"
         val email = "email"
         val password = "1234Abc#"
         val salt = "salt"
         val passwordHash = "passwordHash"
-        val testUser = UserEntity.test(username = username, email = email, password = passwordHash, salt = salt)
+        val testUser = UserEntity.test(username = username, email = email, password = passwordHash, salt = salt, publicId = "1")
         val userDomain = testUser.toDomain()
         `when`(bcryptUtil.generateSalt(username)).thenReturn(salt)
         `when`(bcryptUtil.generatePasswordHash(password, username, salt, 10)).thenReturn(passwordHash)
-        `when`(userRepository.save(testUser)).thenReturn(userDomain)
+        `when`(userRepository.save(anyOrNull())).thenReturn(userDomain)
         `when`(jwtUtil.generateToken(anyString(), anyString())).thenReturn("token")
 
         // Act
@@ -173,4 +167,72 @@ class AuthServiceTest {
         assertNotNull(result)
         assertEquals("token", result)
     }
+
+    @Test
+    fun `register should throw an exception when password fails to hash`() {
+        // Arrange
+        val username = "username"
+        val email = "email"
+        val password = "1234Abc#"
+        val salt = "salt"
+        `when`(bcryptUtil.generateSalt(username)).thenReturn(salt)
+        `when`(bcryptUtil.generatePasswordHash(password, username, salt, 10)).thenReturn(null)
+
+        // Act
+        val exception = assertThrows(WebApplicationException::class.java) {
+            authService.register(username, email, password)
+        }
+
+        // Assert
+        assertEquals("Failed to hash password", exception.message)
+        assertEquals(500, exception.response.status)
+    }
+
+//    @Test
+//    fun `register should rethrow exception on save when message is null`() {
+//        // Arrange
+//        val username = "username"
+//        val email = "email"
+//        val password = "1234Abc#"
+//        val salt = "salt"
+//        val passwordHash = "passwordHash"
+//        `when`(bcryptUtil.generateSalt(username)).thenReturn(salt)
+//        `when`(bcryptUtil.generatePasswordHash(password, username, salt, 10)).thenReturn(passwordHash)
+//        val mockException = mock(Exception::class.java)
+//        `when`(userRepository.save(anyOrNull())).thenThrow(mockException)
+//        `when`(mockException.message).thenReturn(null)
+//
+//        // Act
+//        val exception = assertThrows(WebApplicationException::class.java) {
+//            authService.register(username, email, password)
+//        }
+//
+//        // Assert
+//        assertNull(exception.message)
+//        assertEquals(500, exception.response.status)
+//        assertEquals("Failed to save user", exception.message)
+//    }
+//
+//    @Test
+//    fun `register should rethrow exception on save when message is not unique constraint`() {
+//        // Arrange
+//        val username = "username"
+//        val email = "email"
+//        val password = "1234Abc#"
+//        val salt = "salt"
+//        val passwordHash = "passwordHash"
+//        val testUser = UserEntity.test(username = username, email = email, password = passwordHash, salt = salt)
+//        `when`(bcryptUtil.generateSalt(username)).thenReturn(salt)
+//        `when`(bcryptUtil.generatePasswordHash(password, username, salt, 10)).thenReturn(passwordHash)
+//        `when`(userRepository.save(anyOrNull())).thenThrow(SQLException("generic exception without any relevant message"))
+//
+//        // Act
+//        val exception = assertThrows(WebApplicationException::class.java) {
+//            authService.register(username, email, password)
+//        }
+//
+//        // Assert
+//        assertEquals("Failed to save user", exception.message)
+//        assertEquals(500, exception.response.status)
+//    }
 }

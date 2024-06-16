@@ -4,6 +4,7 @@ import dev.mateux.application.AuthService
 import dev.mateux.application.dto.UserLoginDto
 import dev.mateux.application.dto.UserRegisterDto
 import dev.mateux.domain.Roles
+import io.smallrye.common.annotation.RunOnVirtualThread
 import jakarta.annotation.security.PermitAll
 import jakarta.annotation.security.RolesAllowed
 import jakarta.enterprise.context.ApplicationScoped
@@ -50,6 +51,7 @@ class AuthResource(
     @POST
     @Path("/login")
     @PermitAll
+    @RunOnVirtualThread
     @RequestBody(
         name = "User login payload",
         description = "User login payload containing username and password",
@@ -105,6 +107,7 @@ class AuthResource(
     @POST
     @Path("/register")
     @PermitAll
+    @RunOnVirtualThread
     @RequestBody(
         name = "User register payload",
         description = "User register payload containing username, email and password",
@@ -155,6 +158,7 @@ class AuthResource(
     @GET
     @Path("/me")
     @RolesAllowed(Roles.USER)
+    @RunOnVirtualThread
     @SecurityRequirement(name = "bearerAuth")
     @APIResponses(
         value = [

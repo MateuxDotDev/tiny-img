@@ -42,19 +42,17 @@ class AuthService(
 
         val user = UserEntity.withoutId(username, email, passwordHash, salt)
 
-        try {
+        val userDomain = try {
             userRepository.save(user)
         } catch (e: Exception) {
             if (e.message?.contains("unique constraint") == true) {
                 throw WebApplicationException("Username or email already exists", 400)
-            } else {
-                throw e
             }
+
+            throw WebApplicationException("Failed to save user", 500)
         }
 
-        val publicId = user.publicId ?: throw WebApplicationException("User has no publicId", 500)
-
-        return jwtUtil.generateToken(username, publicId)
+        return jwtUtil.generateToken(username, userDomain.publicId)
     }
 
     private fun isPasswordStrong(password: String): Boolean {

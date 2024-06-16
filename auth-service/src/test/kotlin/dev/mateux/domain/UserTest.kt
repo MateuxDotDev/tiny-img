@@ -11,8 +11,8 @@ class UserTest {
     @DisplayName("Should return true when two objects contain same values")
     fun shouldReturnFalseWhenTwoObjectsContainDifferentValues() {
         // Arrange
-        val user1 = User(1, "user1", "user1@mail.com")
-        val user2 = User(2, "user2", "user2@mail.com")
+        val user1 = User(1, "user1", "user1@mail.com", "1")
+        val user2 = User(2, "user2", "user2@mail.com", "2")
 
         // Act
         val result = user1 == user2
@@ -25,8 +25,8 @@ class UserTest {
     @DisplayName("should return true when two objects contain same values")
     fun shouldReturnTrueWhenTwoObjectsContainSameValues() {
         // Arrange
-        val user1 = User(1, "user1", "user1@mail.com")
-        val user2 = User(1, "user1", "user1@mail.com")
+        val user1 = User(1, "user1", "user1@mail.com", "1")
+        val user2 = User(1, "user1", "user1@mail.com", "1")
 
         // Act
         val result = user1 == user2
