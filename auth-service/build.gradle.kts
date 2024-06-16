@@ -2,7 +2,7 @@ plugins {
     kotlin("jvm") version "1.9.23"
     kotlin("plugin.allopen") version "1.9.23"
     id("io.quarkus")
-    id("org.sonarqube") version "3.5.0.2730"
+    id("org.sonarqube") version "5.0.0.4638"
     id("jacoco")
 }
 
@@ -29,6 +29,7 @@ dependencies {
     implementation("io.quarkus:quarkus-arc")
     implementation("io.quarkus:quarkus-rest")
     testImplementation("io.quarkus:quarkus-junit5")
+    testImplementation("io.quarkus:quarkus-jacoco")
     testImplementation("io.quarkus:quarkus-junit5-mockito")
     testImplementation("io.rest-assured:rest-assured")
 }
