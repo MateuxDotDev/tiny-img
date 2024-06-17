@@ -188,51 +188,49 @@ class AuthServiceTest {
         assertEquals(500, exception.response.status)
     }
 
-//    @Test
-//    fun `register should rethrow exception on save when message is null`() {
-//        // Arrange
-//        val username = "username"
-//        val email = "email"
-//        val password = "1234Abc#"
-//        val salt = "salt"
-//        val passwordHash = "passwordHash"
-//        `when`(bcryptUtil.generateSalt(username)).thenReturn(salt)
-//        `when`(bcryptUtil.generatePasswordHash(password, username, salt, 10)).thenReturn(passwordHash)
-//        val mockException = mock(Exception::class.java)
-//        `when`(userRepository.save(anyOrNull())).thenThrow(mockException)
-//        `when`(mockException.message).thenReturn(null)
-//
-//        // Act
-//        val exception = assertThrows(WebApplicationException::class.java) {
-//            authService.register(username, email, password)
-//        }
-//
-//        // Assert
-//        assertNull(exception.message)
-//        assertEquals(500, exception.response.status)
-//        assertEquals("Failed to save user", exception.message)
-//    }
-//
-//    @Test
-//    fun `register should rethrow exception on save when message is not unique constraint`() {
-//        // Arrange
-//        val username = "username"
-//        val email = "email"
-//        val password = "1234Abc#"
-//        val salt = "salt"
-//        val passwordHash = "passwordHash"
-//        val testUser = UserEntity.test(username = username, email = email, password = passwordHash, salt = salt)
-//        `when`(bcryptUtil.generateSalt(username)).thenReturn(salt)
-//        `when`(bcryptUtil.generatePasswordHash(password, username, salt, 10)).thenReturn(passwordHash)
-//        `when`(userRepository.save(anyOrNull())).thenThrow(SQLException("generic exception without any relevant message"))
-//
-//        // Act
-//        val exception = assertThrows(WebApplicationException::class.java) {
-//            authService.register(username, email, password)
-//        }
-//
-//        // Assert
-//        assertEquals("Failed to save user", exception.message)
-//        assertEquals(500, exception.response.status)
-//    }
+    @Test
+    fun `register should rethrow exception on save when message is null`() {
+        // Arrange
+        val username = "username"
+        val email = "email"
+        val password = "1234Abc#"
+        val salt = "salt"
+        val passwordHash = "passwordHash"
+        `when`(bcryptUtil.generateSalt(username)).thenReturn(salt)
+        `when`(bcryptUtil.generatePasswordHash(password, username, salt, 10)).thenReturn(passwordHash)
+        val mockException = mock(RuntimeException::class.java)
+        `when`(userRepository.save(anyOrNull())).thenThrow(mockException)
+        `when`(mockException.message).thenReturn(null)
+
+        // Act
+        val exception = assertThrows(WebApplicationException::class.java) {
+            authService.register(username, email, password)
+        }
+
+        // Assert
+        assertEquals(500, exception.response.status)
+        assertEquals("Failed to save user", exception.message)
+    }
+
+    @Test
+    fun `register should rethrow exception on save when message is not unique constraint`() {
+        // Arrange
+        val username = "username"
+        val email = "email"
+        val password = "1234Abc#"
+        val salt = "salt"
+        val passwordHash = "passwordHash"
+        `when`(bcryptUtil.generateSalt(username)).thenReturn(salt)
+        `when`(bcryptUtil.generatePasswordHash(password, username, salt, 10)).thenReturn(passwordHash)
+        `when`(userRepository.save(anyOrNull())).thenThrow(RuntimeException("generic exception without any relevant message"))
+
+        // Act
+        val exception = assertThrows(WebApplicationException::class.java) {
+            authService.register(username, email, password)
+        }
+
+        // Assert
+        assertEquals("Failed to save user", exception.message)
+        assertEquals(500, exception.response.status)
+    }
 }
