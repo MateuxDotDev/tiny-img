@@ -14,8 +14,7 @@ import org.junit.jupiter.api.*
 class AuthResourceIntegrationTest {
     @Test
     @Order(1)
-    @DisplayName("should return a token when a valid user is registered")
-    fun shouldReturnTokenWhenValidUserIsRegistered() {
+    fun `should return a token when a valid user is registered`() {
         // Arrange
         val payload = mapOf(
             "username" to "test",
@@ -36,8 +35,7 @@ class AuthResourceIntegrationTest {
 
     @Test
     @Order(2)
-    @DisplayName("should throw an exception when a user with the same username is registered")
-    fun shouldThrowExceptionWhenUserWithSameUsernameIsRegistered() {
+    fun `should throw an exception when a user with the same username is registered`() {
         // Arrange
         val payload = mapOf(
             "username" to "test",
@@ -57,8 +55,7 @@ class AuthResourceIntegrationTest {
 
     @Test
     @Order(3)
-    @DisplayName("should thrown an exception when a user with the same email is registered")
-    fun shouldThrowExceptionWhenUserWithSameEmailIsRegistered() {
+    fun `should thrown an exception when a user with the same email is registered`() {
         // Arrange
         val payload = mapOf(
             "username" to "test2",
@@ -78,8 +75,7 @@ class AuthResourceIntegrationTest {
 
     @Test
     @Order(4)
-    @DisplayName("should throw an exception when password is too weak")
-    fun shouldThrowExceptionWhenPasswordIsTooWeak() {
+    fun `should throw an exception when password is too weak`() {
         // Arrange
         val payload = mapOf(
             "username" to "test2",
@@ -99,8 +95,7 @@ class AuthResourceIntegrationTest {
 
     @Test
     @Order(5)
-    @DisplayName("should return a token when a valid user logs in")
-    fun shouldReturnTokenWhenValidUserLogsIn() {
+    fun `should return a token when a valid user logs in`() {
         // Arrange
         val payload = mapOf(
             "username" to "test",
@@ -120,8 +115,7 @@ class AuthResourceIntegrationTest {
 
     @Test
     @Order(6)
-    @DisplayName("should throw an exception when a user is not found")
-    fun shouldThrowExceptionWhenUserIsNotFound() {
+    fun `should throw an exception when a user is not found`() {
         // Arrange
         val payload = mapOf(
             "username" to "test3",
@@ -140,8 +134,7 @@ class AuthResourceIntegrationTest {
 
     @Test
     @Order(7)
-    @DisplayName("should throw an exception when user password is wrong")
-    fun shouldThrowExceptionWhenUserPasswordIsWrong() {
+    fun `should throw an exception when user password is wrong`() {
         // Arrange
         val payload = mapOf(
             "username" to "test",
@@ -160,8 +153,7 @@ class AuthResourceIntegrationTest {
 
     @Test
     @Order(8)
-    @DisplayName("should return username, id, groups when a authorized user accesses me")
-    fun shouldReturnUsernameIdGroupsWhenAuthorizedUserAccessesMe() {
+    fun `should return username, id, groups when a authorized user accesses me`() {
         // Arrange
         val payload = mapOf(
             "username" to "test",
@@ -190,8 +182,7 @@ class AuthResourceIntegrationTest {
 
     @Test
     @Order(9)
-    @DisplayName("should throw an exception when an unauthorized user accesses me")
-    fun shouldThrowExceptionWhenUnauthorizedUserAccessesMe() {
+    fun `should throw an exception when an unauthorized user accesses me`() {
         // Act & Assert
         given()
             .`when`().get("/auth/me")

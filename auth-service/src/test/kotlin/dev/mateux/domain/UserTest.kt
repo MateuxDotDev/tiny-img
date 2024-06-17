@@ -8,8 +8,7 @@ import org.junit.jupiter.api.Test
 @DisplayName("User tests")
 class UserTest {
     @Test
-    @DisplayName("Should return true when two objects contain same values")
-    fun shouldReturnFalseWhenTwoObjectsContainDifferentValues() {
+    fun `should return false when two objects contain same values`() {
         // Arrange
         val user1 = User(1, "user1", "user1@mail.com", "1")
         val user2 = User(2, "user2", "user2@mail.com", "2")
@@ -22,8 +21,8 @@ class UserTest {
     }
 
     @Test
-    @DisplayName("should return true when two objects contain same values")
-    fun shouldReturnTrueWhenTwoObjectsContainSameValues() {
+    @DisplayName("")
+    fun `should return true when two objects contain same values`() {
         // Arrange
         val user1 = User(1, "user1", "user1@mail.com", "1")
         val user2 = User(1, "user1", "user1@mail.com", "1")

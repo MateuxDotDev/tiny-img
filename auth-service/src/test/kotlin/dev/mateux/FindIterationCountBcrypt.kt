@@ -8,7 +8,7 @@ import kotlin.system.measureTimeMillis
 @Disabled
 class FindIterationCountBcrypt {
     @Test
-    fun findIterationCount() {
+    fun `find iteration count`() {
         val password = "password"
         val costs = (4..16).toList()
         val expectedTimeMillis = 1000L

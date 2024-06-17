@@ -11,10 +11,8 @@ import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestInstance
-import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito.*
 import org.mockito.kotlin.anyOrNull
-import java.sql.SQLException
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @DisplayName("Auth Service Test")
