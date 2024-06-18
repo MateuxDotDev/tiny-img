@@ -49,12 +49,10 @@ open class UserEntity(
     }
 
     fun toDomain(): User {
-        val id = id
-        val username = username
-        val email = email
-        val publicId = publicId
-
-        if (id == null || username == null || email == null || publicId == null) throw IllegalStateException("UserEntity is not valid")
+        val id = id ?: throw IllegalStateException("Missing id in UserEntity")
+        val username = username ?: throw IllegalStateException("Missing username in UserEntity")
+        val email = email ?: throw IllegalStateException("Missing email in UserEntity")
+        val publicId = publicId ?: throw IllegalStateException("Missing publicId in UserEntity")
 
         return User(id, username, email, publicId)
     }

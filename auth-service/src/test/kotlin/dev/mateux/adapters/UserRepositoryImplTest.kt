@@ -24,8 +24,7 @@ class UserRepositoryImplTest {
     }
 
     @Test
-    @DisplayName("findByUserName should return a single user entity")
-    fun findByUserNameShouldReturnASingleUserEntity() {
+    fun `findByUserName should return a single user entity`() {
         // Arrange
         val username = "user1"
         val userEntity = UserEntity.test()
@@ -47,8 +46,7 @@ class UserRepositoryImplTest {
     }
 
     @Test
-    @DisplayName("findByUserName should return null when user not found")
-    fun findByUserNameShouldReturnNullWhenUserNotFound() {
+    fun `findByUserName should return null when user not found`() {
         // Arrange
         val username = "user1"
 
@@ -66,8 +64,7 @@ class UserRepositoryImplTest {
     }
 
     @Test
-    @DisplayName("findByUserName should throw exception when query fails")
-    fun findByUserNameShouldThrowExceptionWhenQueryFails() {
+    fun `findByUserName should throw exception when query fails`() {
         // Arrange
         val username = "user1"
 
@@ -84,8 +81,7 @@ class UserRepositoryImplTest {
     }
 
     @Test
-    @DisplayName("Save should persist user entity")
-    fun saveShouldPersistUserEntity() {
+    fun `save should persist user entity`() {
         // Arrange
         val userEntity = UserEntity.test()
 

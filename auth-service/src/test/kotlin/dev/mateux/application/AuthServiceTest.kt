@@ -7,13 +7,12 @@ import dev.mateux.ports.UserRepository
 import jakarta.ws.rs.WebApplicationException
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.BeforeAll
+import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestInstance
-import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito.*
 import org.mockito.kotlin.anyOrNull
-import java.sql.SQLException
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @DisplayName("Auth Service Test")
@@ -29,6 +28,11 @@ class AuthServiceTest {
         jwtUtil = mock(JwtUtil::class.java)
         bcryptUtil = mock(BCryptUtil::class.java)
         authService = AuthService(userRepository, jwtUtil, 10.toString(), bcryptUtil)
+    }
+
+    @BeforeEach
+    fun reset() {
+        reset(userRepository, jwtUtil, bcryptUtil)
     }
 
     @Test
