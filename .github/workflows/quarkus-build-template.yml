@@ -2,8 +2,8 @@ name: Auth Service - Build
 
 on:
   push:
-    paths:
-      - 'auth-service/**'
+    # paths:
+    #   - 'auth-service/**'
     branches:
       - dev
 
@@ -25,14 +25,11 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
-      - name: Extract version from pom.xml
-        id: extract_version
-        run: |
-          VERSION=$(xmllint --xpath "//*[local-name()='project']/*[local-name()='version']/text()" pom.xml)
-          echo "VERSION=${VERSION}"
-          echo "version=${VERSION}" >> $GITHUB_ENV
+      - name: Extract Maven project version
+        run: echo ::set-output name=version::$(./mvnw -q -Dexec.executable=echo -Dexec.args='${project.version}' --non-recursive exec:exec)
+        id: project
       - name: Build and push
         uses: docker/build-push-action@v6
         with:
           push: true
-          tags: mateuxlucax/tiny-img:auth-service-dev-${{ env.version }}
+          tags: mateuxlucax/tiny-img:auth-service-dev-${{ steps.project.outputs.version }}

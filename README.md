@@ -80,7 +80,7 @@ graph LR
 
 ## Code quality and coverage
 
-This will be handled by SonarQube during the CI/CD pipeline. All services must meet a quota of at least **50% code coverage**.
+This will be handled by SonarQube during the CI/CD pipeline. All services must meet a quota of **100% code coverage**. Yes, you read it right, **100%**.
 
 ## Communication protocols
 
