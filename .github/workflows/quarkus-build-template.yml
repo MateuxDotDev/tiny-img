@@ -4,6 +4,7 @@ on:
   push:
     paths:
       - 'auth-service/**'
+    branches:
       - dev
 
 jobs:

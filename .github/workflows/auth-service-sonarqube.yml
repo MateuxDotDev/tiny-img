@@ -5,9 +5,10 @@ on:
     paths:
       - 'auth-service/**'
     branches:
+      - dev
+      - qa
+      - uat
       - main
-      - develop
-      - staging
   pull_request:
     types: [opened, synchronize, reopened]
 
