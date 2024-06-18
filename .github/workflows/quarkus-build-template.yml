@@ -1,0 +1,43 @@
+name: Quarkus Build
+
+on:
+  workflow_call:
+    inputs:
+      branches:
+        required: true
+        type: array
+        default: ['dev']
+      dockerhub-username:
+        required: true
+        type: string
+      dockerhub-token:
+        required: true
+        type: string
+      image-name:
+        required: true
+        type: string
+
+jobs:
+  docker:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v3
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+      - name: Login to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ inputs.dockerhub-username }}
+          password: ${{ inputs.dockerhub-token }}
+      - name: Extract version from pom.xml
+        id: extract_version
+        run: |
+          VERSION=$(xmllint --xpath "//*[local-name()='project']/*[local-name()='version']/text()" pom.xml)
+          echo "VERSION=${VERSION}"
+          echo "version=${VERSION}" >> $GITHUB_ENV
+      - name: Build and push
+        uses: docker/build-push-action@v6
+        with:
+          push: true
+          tags: mateuxlucax/tiny-img:${{ inputs.image-name }}-${{ env.version }}

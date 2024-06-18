@@ -1,0 +1,14 @@
+name: Auth Service Build
+
+on:
+  push:
+    branches:
+      - 'dev'
+
+jobs:
+  docker:
+    uses: ./.github/workflows/docker-template.yml
+    with:
+      dockerhub-username: ${{ secrets.DOCKERHUB_USERNAME }}
+      dockerhub-token: ${{ secrets.DOCKERHUB_TOKEN }}
+      image-name: 'auth-service-dev'
