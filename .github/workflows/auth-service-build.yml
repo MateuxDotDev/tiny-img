@@ -39,5 +39,6 @@ jobs:
       - name: Build and push
         uses: docker/build-push-action@v6
         with:
+          context: ./auth-service
           push: true
           tags: mateuxlucax/tiny-img:auth-service-dev-${{ env.APP_VERSION }}
