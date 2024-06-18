@@ -1,25 +1,19 @@
-name: Quarkus Build
+name: Auth Service - Build
 
 on:
-  workflow_call:
-    inputs:
-      branches:
-        required: true
-        type: array
-        default: ['dev']
-      dockerhub-username:
-        required: true
-        type: string
-      dockerhub-token:
-        required: true
-        type: string
-      image-name:
-        required: true
-        type: string
+  push:
+    paths:
+      - 'auth-service/**'
+      - dev
 
 jobs:
   docker:
+    name: Dockerize application
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
+        working-directory: ./auth-service
     steps:
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
@@ -40,4 +34,4 @@ jobs:
         uses: docker/build-push-action@v6
         with:
           push: true
-          tags: mateuxlucax/tiny-img:${{ inputs.image-name }}-${{ env.version }}
+          tags: mateuxlucax/tiny-img:auth-service-dev-${{ env.version }}
