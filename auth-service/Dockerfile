@@ -16,7 +16,7 @@ RUN ./mvnw package -Dnative -DskipTests
 FROM quay.io/quarkus/quarkus-micro-image:2.0
 
 WORKDIR /work/
-COPY --from=build /code/build/*-runner /work/application
+COPY --from=build /code/target/*-runner /work/application
 RUN chmod 775 /work
 
 USER quarkus
