@@ -6,8 +6,8 @@ on:
     types:
       - completed
   push:
-    # paths:
-    #   - 'auth-service/**'
+    paths:
+      - 'auth-service/**'
     branches:
       - dev
 
