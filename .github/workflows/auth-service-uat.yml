@@ -4,16 +4,12 @@ on:
   push:
     paths:
       - 'auth-service/**'
-  pull_request:
-    types: [closed]
+  branches:
+    - uat
 
 jobs:
   tag-and-push-uat-image:
     name: Tag and push the UAT image
-    if: >
-      github.event.pull_request.merged == true &&
-      github.event.pull_request.base.ref == 'uat' &&
-      github.event.pull_request.head.ref == 'qa'
     runs-on: ubuntu-latest
     defaults:
       run:
