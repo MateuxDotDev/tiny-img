@@ -1,25 +1,22 @@
 FROM quay.io/quarkus/ubi-quarkus-mandrel-builder-image:jdk-21 AS build
-USER root
-
-RUN microdnf install findutils
-
-COPY --chown=quarkus:quarkus gradlew /code/gradlew
-COPY --chown=quarkus:quarkus gradle /code/gradle
-COPY --chown=quarkus:quarkus build.gradle.kts /code/
-COPY --chown=quarkus:quarkus settings.gradle.kts /code/
-COPY --chown=quarkus:quarkus gradle.properties /code/
-
 USER quarkus
 
 WORKDIR /code
 
+COPY mvnw .
+COPY .mvn .mvn
+COPY pom.xml .
+
+RUN ./mvnw -B dependency:go-offline
+
 COPY src /code/src
-RUN ./gradlew build -x test  -Dquarkus.package.jar.enabled=false -Dquarkus.native.enabled=true
+
+RUN ./mvnw package -Dnative -DskipTests
 
 FROM quay.io/quarkus/quarkus-micro-image:2.0
 
 WORKDIR /work/
-COPY --from=build /code/build/*-runner /work/application
+COPY --from=build /code/target/*-runner /work/application
 RUN chmod 775 /work
 
 USER quarkus

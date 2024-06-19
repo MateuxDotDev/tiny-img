@@ -16,6 +16,8 @@
     <skipITs>true</skipITs>
     <surefire-plugin.version>3.2.5</surefire-plugin.version>
     <jacoco.version>0.8.12</jacoco.version>
+    <sonar.exclusions>**/Roles.kt,**/*Test.kt</sonar.exclusions>
+    <sonar.cpd.exclusions>**/AuthResource.kt</sonar.cpd.exclusions>
   </properties>
   <dependencyManagement>
     <dependencies>

@@ -12,7 +12,7 @@ Easy to use, able to integrate with Java code libraries with null safety and fun
 
 ## Status
 
-Proposed
+Accepted
 
 ## Consequences
 
