@@ -2,10 +2,10 @@ name: Auth Service - Production
 
 on:
   push:
-    paths:
-      - 'auth-service/**'
-  branches:
-    - main
+    # paths:
+    #   - 'auth-service/**'
+    branches:
+      - main
 
 jobs:
   tag-and-push-prod-image:
