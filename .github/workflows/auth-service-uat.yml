@@ -2,10 +2,10 @@ name: Auth Service - User Acceptance Testing (UAT)
 
 on:
   push:
-    paths:
-      - 'auth-service/**'
-  branches:
-    - uat
+    # paths:
+    #   - 'auth-service/**'
+    branches:
+      - uat
 
 jobs:
   tag-and-push-uat-image:
