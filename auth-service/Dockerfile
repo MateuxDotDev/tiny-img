@@ -11,7 +11,7 @@ RUN ./mvnw -B dependency:go-offline
 
 COPY src /code/src
 
-RUN ./mvnw package -Dnative
+RUN ./mvnw package -Dnative -DskipTests
 
 FROM quay.io/quarkus/quarkus-micro-image:2.0
 

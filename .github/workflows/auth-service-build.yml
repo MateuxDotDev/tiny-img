@@ -1,6 +1,10 @@
 name: Auth Service - Build
 
 on:
+  workflow_run:
+    workflows: ["Auth Service - SonarQube Analysis"]
+    types:
+      - completed
   push:
     # paths:
     #   - 'auth-service/**'
