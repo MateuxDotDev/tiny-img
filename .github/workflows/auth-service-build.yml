@@ -45,4 +45,4 @@ jobs:
         with:
           context: ./auth-service
           push: true
-          tags: mateuxlucax/tiny-img:auth-service-dev-${{ env.APP_VERSION }}
+          tags: mateuxlucax/tiny-img:auth-service-dev,mateuxlucax/tiny-img:auth-service-dev-${{ env.APP_VERSION }}
