@@ -12,7 +12,7 @@ Simple, fast, lightweight and able to generate native executables. Quarkus is a 
 
 ## Status
 
-Proposed
+Accepted
 
 ## Consequences
 

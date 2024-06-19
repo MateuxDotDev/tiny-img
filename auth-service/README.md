@@ -49,6 +49,13 @@ GET /auth
       "password": "string"
     }
     ```
+- `GET /auth/me`
+  - Headers:
+    ```json
+    {
+      "Authorization": "Bearer <token>"
+    }
+    ```
 
 ## Generate JWT keys
 
