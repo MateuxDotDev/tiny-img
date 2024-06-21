@@ -11,8 +11,9 @@ You will be able to either store the image in the server, download it directly o
 
 ```mermaid
 graph LR
-    A[Auth Service] <--> B[TinyImg Service]
-    A <--> C[Notification Service]
+    A[Auth Service]
+    B[TinyImg Service]
+    B <--> C[Notification Service]
     B <--> D[FFmpeg Service]
     D <--> C
 ```
