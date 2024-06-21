@@ -2,8 +2,8 @@ name: Auth Service - User Acceptance Testing (UAT)
 
 on:
   push:
-    # paths:
-    #   - 'auth-service/**'
+    paths:
+      - 'auth-service/**'
     branches:
       - uat
 

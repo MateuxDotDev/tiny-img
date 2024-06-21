@@ -1,0 +1,16 @@
+services:
+  tiny-img-service:
+    image: mateuxlucax/tiny-img:service-local
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    hostname: tiny-img-service
+    container_name: tiny-img-service
+    ports:
+      - "8080:8080"
+    env_file:
+      - .env
+    depends_on:
+      - tiny-img-database
+      - tiny-img-queue
