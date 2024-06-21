@@ -2,3 +2,5 @@ include:
   - network/docker-compose.yml
   - database/docker-compose.yml
   - auth-service/docker-compose.yml
+  - message-queue/docker-compose.yml
+  - tiny-img-service/docker-compose.yml

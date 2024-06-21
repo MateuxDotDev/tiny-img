@@ -11,7 +11,8 @@ Swagger will be used as the API documentation tool for the image processing appl
 NestJS already comes with a built-in Swagger module that makes it easy to generate API documentation. Swagger provides a standard way to describe RESTful APIs and generate interactive documentation. It is well-suited for building microservices and has a strong ecosystem of libraries and tools that will help us build a secure and scalable image processing application.
 
 ## Status
-Proposed
+
+Accepted
 
 ## Consequences
 

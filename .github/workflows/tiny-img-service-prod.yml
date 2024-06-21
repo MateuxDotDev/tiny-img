@@ -1,20 +1,20 @@
-name: Auth Service - Quality Assurance (QA)
+name: Tiny Img Service - Production
 
 on:
   push:
     paths:
-      - 'auth-service/**'
+      - 'tiny-img-service/**'
     branches:
-      - qa
+      - main
 
 jobs:
-  tag-and-push-qa-image:
-    name: Tag and push the QA image
+  tag-and-push-prod-image:
+    name: Tag and push the production image
     runs-on: ubuntu-latest
     defaults:
       run:
         shell: bash
-        working-directory: ./auth-service
+        working-directory: ./tiny-img-service
 
     steps:
       - name: Check out the repository
@@ -37,16 +37,16 @@ jobs:
           APP_VERSION=$(./mvnw -q -Dexec.executable=echo -Dexec.args='${project.version}' --non-recursive exec:exec)
           echo "APP_VERSION=$APP_VERSION" >> $GITHUB_ENV
 
-      - name: Pull the dev image
+      - name: Pull the uat image
         run: |
-          docker pull mateuxlucax/tiny-img:auth-service-dev-${{ env.APP_VERSION }}
+          docker pull mateuxlucax/tiny-img:tiny-img-service-uat-${{ env.APP_VERSION }}
 
-      - name: Tag the image with qa
+      - name: Tag the image with uat
         run: |
-          docker tag mateuxlucax/tiny-img:auth-service-dev-${{ env.APP_VERSION }} mateuxlucax/tiny-img:auth-service-qa-${{ env.APP_VERSION }}
-          docker tag mateuxlucax/tiny-img:auth-service-dev-${{ env.APP_VERSION }} mateuxlucax/tiny-img:auth-service-qa
+          docker tag mateuxlucax/tiny-img:tiny-img-service-uat-${{ env.APP_VERSION }} mateuxlucax/tiny-img:tiny-img-service-${{ env.APP_VERSION }}
+          docker tag mateuxlucax/tiny-img:tiny-img-service-uat-${{ env.APP_VERSION }} mateuxlucax/tiny-img:tiny-img-service
 
-      - name: Push the qa tags
+      - name: Push the uat tags
         run: |
-          docker push mateuxlucax/tiny-img:auth-service-qa-${{ env.APP_VERSION }}
-          docker push mateuxlucax/tiny-img:auth-service-qa
+          docker push mateuxlucax/tiny-img:tiny-img-service-${{ env.APP_VERSION }}
+          docker push mateuxlucax/tiny-img:tiny-img-service
