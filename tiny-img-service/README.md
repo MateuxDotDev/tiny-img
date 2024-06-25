@@ -14,7 +14,7 @@ This project is responsible for managing user images, sending them to the FFmpeg
 
 ## Design pattern
 
-- Clean Architecture
+- Hexagonal Architecture
 
 ## ADRs
 

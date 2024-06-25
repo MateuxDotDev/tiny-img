@@ -4,7 +4,32 @@ CREATE TABLE users (
   email VARCHAR(255) UNIQUE NOT NULL,
   password TEXT NOT NULL,
   salt TEXT NOT NULL,
-  public_id TEXT NOT NULL,
+  public_id TEXT NOT NULL UNIQUE,
   created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+
+INSERT INTO public.users
+(id, username, email, "password", salt, public_id, created_at, updated_at)
+VALUES(1, 'example', 'example@mail.com', '$2a$13$hDmSZpC.fDAQuw2NYJW9XOMeVXsXyC4txQYsgg/33fqdP3FC8ATEe', '$2a$10$yf.dokdah2fkCKKVP7gHkuqLCHUfrFU2k0e0KZ4Z0y8JMSOT22kfi', '25e5be2b-6e4a-46c5-b1d6-711c8174bf3f', now(), now());
+
+CREATE TABLE images (
+  id SERIAL PRIMARY KEY,
+  image_id TEXT NOT NULL,
+  path VARCHAR(255) NOT NULL,
+  user_id TEXT NOT NULL,
+  created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (user_id) REFERENCES users(public_id) ON DELETE CASCADE
+);
+
+CREATE TABLE share_links (
+  id SERIAL PRIMARY KEY,
+  link VARCHAR(255) NOT NULL,
+  image_id INT NOT NULL,
+  usage_count INT NOT NULL DEFAULT 0,
+  max_usage_count INT NOT NULL DEFAULT 3,
+  created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (image_id) REFERENCES images(id) ON DELETE CASCADE
 );
