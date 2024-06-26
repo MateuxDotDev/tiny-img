@@ -2,12 +2,11 @@ package dev.mateux.adapters
 
 import dev.mateux.domain.Roles
 import io.quarkus.test.junit.QuarkusTest
-import io.quarkus.test.security.SecurityAttribute
 import io.quarkus.test.security.TestSecurity
-import io.restassured.http.ContentType
 import io.quarkus.test.security.jwt.Claim
 import io.quarkus.test.security.jwt.JwtSecurity
 import io.restassured.RestAssured.given
+import io.restassured.http.ContentType
 import jakarta.ws.rs.core.MediaType
 import org.hamcrest.Matchers
 import org.junit.jupiter.api.*

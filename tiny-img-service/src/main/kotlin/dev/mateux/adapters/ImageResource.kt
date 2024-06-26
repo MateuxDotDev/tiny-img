@@ -4,7 +4,6 @@ import dev.mateux.application.ImageService
 import dev.mateux.domain.Roles
 import dev.mateux.domain.User
 import io.smallrye.common.annotation.RunOnVirtualThread
-import io.smallrye.mutiny.Uni
 import jakarta.annotation.security.RolesAllowed
 import jakarta.enterprise.context.RequestScoped
 import jakarta.inject.Inject

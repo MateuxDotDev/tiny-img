@@ -1,7 +1,6 @@
 package dev.mateux.application
 
 import dev.mateux.adapters.ImageEntity
-import dev.mateux.domain.Image
 import dev.mateux.domain.User
 import dev.mateux.ports.ImageRepository
 import dev.mateux.ports.ImageStorage
@@ -9,12 +8,10 @@ import jakarta.enterprise.context.ApplicationScoped
 import jakarta.inject.Inject
 import jakarta.transaction.Transactional
 import jakarta.ws.rs.WebApplicationException
-import java.io.File
-import java.time.LocalDate
-import java.time.format.DateTimeFormatter
-import java.util.UUID
 import org.eclipse.microprofile.config.inject.ConfigProperty
 import org.jboss.resteasy.reactive.multipart.FileUpload
+import java.io.File
+import java.util.*
 
 @ApplicationScoped
 class ImageService(
@@ -45,7 +42,7 @@ class ImageService(
                     userId = user.publicId
                     )).publicId
             } catch (e: Exception) {
-                if (imageStorage.removeImageByPath(imagePath)) {
+                if (!imageStorage.removeImageByPath(imagePath)) {
                     throw WebApplicationException("Error removing image", 500)
                 }
 
