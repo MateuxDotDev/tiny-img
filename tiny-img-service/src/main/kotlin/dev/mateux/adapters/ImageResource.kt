@@ -4,6 +4,7 @@ import dev.mateux.application.ImageService
 import dev.mateux.domain.Roles
 import dev.mateux.domain.User
 import io.smallrye.common.annotation.RunOnVirtualThread
+import io.smallrye.mutiny.Uni
 import jakarta.annotation.security.RolesAllowed
 import jakarta.enterprise.context.RequestScoped
 import jakarta.inject.Inject
@@ -17,6 +18,8 @@ import org.eclipse.microprofile.openapi.annotations.media.Schema
 import org.eclipse.microprofile.openapi.annotations.tags.Tag
 import org.jboss.resteasy.reactive.RestForm
 import org.jboss.resteasy.reactive.multipart.FileUpload
+import java.io.File
+
 
 @Path("/image")
 @Tag(name = "Image")
@@ -27,6 +30,9 @@ import org.jboss.resteasy.reactive.multipart.FileUpload
 class ImageResource(
     @Inject private var imageService: ImageService
 ) {
+    @Schema(type = SchemaType.STRING, format = "binary")
+    internal class UploadItemSchema
+
     @POST
     @Consumes(MediaType.MULTIPART_FORM_DATA)
     @RunOnVirtualThread
@@ -41,6 +47,26 @@ class ImageResource(
         ).build()
     }
 
-    @Schema(type = SchemaType.STRING, format = "binary")
-    internal class UploadItemSchema
+    @GET
+    @Path("/{imageId}")
+    @Produces(MediaType.APPLICATION_OCTET_STREAM)
+    fun getImage(
+        @PathParam("imageId") imageId: String
+    ) : Response {
+        val imageFile: File = imageService.getImage(imageId)
+
+        return Response.ok(imageFile.inputStream())
+            .header("Content-Disposition", "attachment; filename=\"${imageFile.name}\"")
+            .build()
+    }
+
+    @GET
+    @Path("/{imageId}/children")
+    fun getChildrenImages(
+        @PathParam("imageId") imageId: String
+    ) : Response {
+        return Response.ok(
+            imageService.getChildrenImages(imageId)
+        ).build()
+    }
 }

@@ -5,4 +5,6 @@ import dev.mateux.domain.Image
 
 interface ImageRepository {
     fun storeImage(imageEntity: ImageEntity) : Image
+    fun getImageByPublicId(publicId: String): Image?
+    fun getChildrenImages(parentId: String): List<Image>
 }
