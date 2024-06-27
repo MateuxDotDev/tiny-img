@@ -2,6 +2,7 @@ package dev.mateux.adapters
 
 import dev.mateux.application.ImageService
 import dev.mateux.application.util.UploadItemSchema
+import dev.mateux.application.dto.OptimizationOptions
 import dev.mateux.domain.Roles
 import dev.mateux.domain.User
 import io.smallrye.common.annotation.RunOnVirtualThread
@@ -13,7 +14,6 @@ import jakarta.ws.rs.core.Context
 import jakarta.ws.rs.core.MediaType
 import jakarta.ws.rs.core.Response
 import jakarta.ws.rs.core.SecurityContext
-import org.eclipse.microprofile.openapi.annotations.enums.SchemaType
 import org.eclipse.microprofile.openapi.annotations.media.Schema
 import org.eclipse.microprofile.openapi.annotations.tags.Tag
 import org.jboss.resteasy.reactive.RestForm
@@ -30,8 +30,6 @@ import java.io.File
 class ImageResource(
     @Inject private var imageService: ImageService
 ) {
-
-
     @POST
     @Consumes(MediaType.MULTIPART_FORM_DATA)
     @RunOnVirtualThread
@@ -67,5 +65,14 @@ class ImageResource(
         return Response.ok(
             imageService.getChildrenImages(imageId)
         ).build()
+    }
+
+    @POST
+    @Path("/{imageId}/optimize")
+    fun optimizeImage(
+        @PathParam("imageId") imageId: String,
+        options: OptimizationOptions
+    ) : Response {
+        return if (imageService.optimizeImage(imageId, options)) Response.accepted().build() else Response.serverError().build()
     }
 }

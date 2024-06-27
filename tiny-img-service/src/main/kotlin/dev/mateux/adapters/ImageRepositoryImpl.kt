@@ -41,4 +41,13 @@ class ImageRepositoryImpl(
             throw e
         }
     }
+
+    override fun addChildImage(child: ImageEntity): Image {
+        return try {
+            entityManager.persist(child)
+            child.toDomain()
+        } catch (e: Exception) {
+            throw e
+        }
+    }
 }
