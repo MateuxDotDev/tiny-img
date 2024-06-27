@@ -62,6 +62,17 @@ class ImageResourceIntegrationTest {
     @Test
     @Authenticate
     @Order(3)
+    fun `should return 404 when an invalid image id is provided`() {
+        // Act & Assert
+        given()
+            .`when`().get("/image/invalid-id")
+            .then()
+            .statusCode(404)
+    }
+
+    @Test
+    @Authenticate
+    @Order(4)
     fun `should list all children from image id`() {
         // Act & Assert
         given()

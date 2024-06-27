@@ -1,6 +1,7 @@
 package dev.mateux.adapters
 
 import dev.mateux.application.ImageService
+import dev.mateux.application.util.UploadItemSchema
 import dev.mateux.domain.Roles
 import dev.mateux.domain.User
 import io.smallrye.common.annotation.RunOnVirtualThread
@@ -29,8 +30,7 @@ import java.io.File
 class ImageResource(
     @Inject private var imageService: ImageService
 ) {
-    @Schema(type = SchemaType.STRING, format = "binary")
-    internal class UploadItemSchema
+
 
     @POST
     @Consumes(MediaType.MULTIPART_FORM_DATA)

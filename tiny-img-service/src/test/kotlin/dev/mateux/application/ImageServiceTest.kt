@@ -3,6 +3,7 @@ package dev.mateux.application
 import dev.mateux.domain.User
 import dev.mateux.ports.ImageRepository
 import dev.mateux.ports.ImageStorage
+import io.quarkus.test.junit.QuarkusTest
 import jakarta.ws.rs.WebApplicationException
 import org.jboss.resteasy.reactive.multipart.FileUpload
 import org.jboss.resteasy.reactive.server.core.multipart.DefaultFileUpload
@@ -12,8 +13,8 @@ import org.mockito.Mockito.*
 import org.mockito.kotlin.anyOrNull
 import java.io.File
 import java.nio.file.Path
-import java.sql.SQLException
 
+@QuarkusTest
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @DisplayName("Image Service Test")
 class ImageServiceTest {
