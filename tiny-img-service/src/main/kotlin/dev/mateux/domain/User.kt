@@ -8,6 +8,10 @@ data class User(
     val publicId: String
 ) {
     companion object {
+        fun test(username: String = "test", publicId: String = "test"): User {
+            return User(username, publicId)
+        }
+
         fun fromSecurityContext(context: SecurityContext): User {
             val token = context.userPrincipal as JsonWebToken
 

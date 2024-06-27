@@ -1,12 +1,7 @@
 package dev.mateux.adapters
 
 import dev.mateux.domain.Image
-import jakarta.persistence.Column
-import jakarta.persistence.Entity
-import jakarta.persistence.GeneratedValue
-import jakarta.persistence.GenerationType
-import jakarta.persistence.Id
-import jakarta.persistence.Table
+import jakarta.persistence.*
 import org.hibernate.annotations.CreationTimestamp
 import org.hibernate.annotations.UpdateTimestamp
 import java.sql.Timestamp
@@ -24,6 +19,8 @@ open class ImageEntity(
     var path: String? = "",
     @Column(nullable = false, columnDefinition = "TEXT NOT NULL UNIQUE", name = "user_id")
     var userId: String? = "",
+    @Column(nullable = true, columnDefinition = "TEXT DEFAULT NULL", name = "parent_id")
+    var parentId: String? = null,
     @CreationTimestamp
     @Column(nullable = false, columnDefinition = "TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP", name = "created_at")
     var createdAt: Timestamp? = null,

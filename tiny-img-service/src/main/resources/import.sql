@@ -15,12 +15,14 @@ VALUES(1, 'example', 'example@mail.com', '$2a$13$hDmSZpC.fDAQuw2NYJW9XOMeVXsXyC4
 
 CREATE TABLE images (
   id SERIAL PRIMARY KEY,
-  image_id TEXT NOT NULL,
+  image_id TEXT NOT NULL UNIQUE,
   path VARCHAR(255) NOT NULL,
   user_id TEXT NOT NULL,
+  parent_id TEXT DEFAULT NULL,
   created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  FOREIGN KEY (user_id) REFERENCES users(public_id) ON DELETE CASCADE
+  FOREIGN KEY (user_id) REFERENCES users(public_id) ON DELETE CASCADE,
+  FOREIGN KEY (parent_id) REFERENCES images(image_id) ON DELETE CASCADE
 );
 
 CREATE TABLE share_links (
