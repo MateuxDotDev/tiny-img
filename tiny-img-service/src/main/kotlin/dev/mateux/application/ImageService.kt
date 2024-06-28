@@ -69,6 +69,7 @@ class ImageService(
         return imageRepository.getChildrenImages(parentId).map { it.publicId }
     }
 
+    @Transactional(rollbackOn = [Exception::class])
     fun optimizeImage(imageId: String, options: OptimizationOptions): Boolean {
         if (!allowedOptimizationTypes.contains(options.format)) {
             throw WebApplicationException("Format not allowed", 415)

@@ -8,7 +8,7 @@ import org.eclipse.microprofile.reactive.messaging.Emitter;
 
 @ApplicationScoped
 class MessageQueueImpl(
-    @Channel("quote-requests") private var emitter: Emitter<QueuePayload>
+    @Channel("optimize") private var emitter: Emitter<QueuePayload>
 ) : MessageQueue {
     override fun sendImage(payload: QueuePayload): Boolean {
         emitter.send(payload)
