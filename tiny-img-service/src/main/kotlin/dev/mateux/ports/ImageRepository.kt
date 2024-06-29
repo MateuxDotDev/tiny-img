@@ -7,7 +7,6 @@ interface ImageRepository {
     fun storeImage(imageEntity: ImageEntity) : Image
     fun getImageByPublicId(publicId: String): Image?
     fun getChildrenImages(parentId: String): List<Image>
-    fun addChildImage(child: ImageEntity): Image
     fun removeImage(publicId: String): Boolean
     fun getImagesByUserId(userId: String): List<Image>
 }

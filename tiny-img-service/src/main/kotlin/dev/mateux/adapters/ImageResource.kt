@@ -151,7 +151,9 @@ class ImageResource(
         @PathParam("imageId") imageId: String,
         options: OptimizationOptions
     ) : Response {
-        return if (imageService.optimizeImage(imageId, options)) Response.accepted().build() else Response.serverError().build()
+        imageService.optimizeImage(imageId, options)
+
+        return Response.accepted().build()
     }
 
     @GET
@@ -196,6 +198,8 @@ class ImageResource(
     fun deleteImage(
         @PathParam("imageId") imageId: String
     ) : Response {
-        return if (imageService.removeImage(imageId)) Response.noContent().build() else Response.serverError().build()
+        imageService.removeImage(imageId)
+
+        return Response.noContent().build()
     }
 }

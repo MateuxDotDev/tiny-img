@@ -42,15 +42,6 @@ class ImageRepositoryImpl(
         }
     }
 
-    override fun addChildImage(child: ImageEntity): Image {
-        return try {
-            entityManager.persist(child)
-            child.toDomain()
-        } catch (e: Exception) {
-            throw e
-        }
-    }
-
     override fun removeImage(publicId: String): Boolean {
         return try {
             entityManager.createQuery("DELETE FROM ImageEntity i WHERE i.publicId = :publicId")

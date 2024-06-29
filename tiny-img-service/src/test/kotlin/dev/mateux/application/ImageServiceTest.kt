@@ -1,5 +1,6 @@
 package dev.mateux.application
 
+import dev.mateux.domain.Image
 import dev.mateux.domain.User
 import dev.mateux.ports.ImageRepository
 import dev.mateux.ports.ImageStorage
@@ -137,5 +138,19 @@ class ImageServiceTest {
         // Assert
         assertEquals("Error removing image", exception.message)
         assertEquals(500, exception.response.status)
+    }
+
+    @Test
+    fun `should return false when remove image can not remove an image from repository`() {
+        // Arrange
+        val image = Image.test()
+        `when`(imageRepository.getImageByPublicId(anyString())).thenReturn(image)
+        `when`(imageRepository.removeImage(image.publicId)).thenReturn(false)
+
+        // Act
+        val result = imageService.removeImage(image.publicId)
+
+        // Assert
+        assertEquals(false, result)
     }
 }
