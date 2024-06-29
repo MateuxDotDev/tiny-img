@@ -1,6 +1,6 @@
 services:
   tiny-img-queue:
-    image: rabbitmq:3-management
+    image: rabbitmq:3.13-management-alpine
     container_name: tiny-img-queue
     hostname: tiny-img-queue
     ports:

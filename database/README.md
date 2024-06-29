@@ -34,9 +34,11 @@ erDiagram
         uuid image_id
         varchar(255) path
         int user_id
+        parent_id int
         timestamp created_at
         timestamp updated_at
     }
+    image ||--o{ image: "has"
     user ||--o{ image : "has"
     share_link {
         serial id

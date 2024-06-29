@@ -10,6 +10,8 @@ on:
       - uat
       - main
   pull_request:
+    paths:
+      - 'auth-service/**'
     types: [opened, synchronize, reopened]
 
 jobs:
