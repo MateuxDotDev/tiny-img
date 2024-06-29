@@ -3,12 +3,14 @@ package dev.mateux.application
 import dev.mateux.domain.User
 import dev.mateux.ports.ImageRepository
 import dev.mateux.ports.ImageStorage
+import dev.mateux.ports.MessageQueue
 import io.quarkus.test.junit.QuarkusTest
 import jakarta.ws.rs.WebApplicationException
 import org.jboss.resteasy.reactive.multipart.FileUpload
 import org.jboss.resteasy.reactive.server.core.multipart.DefaultFileUpload
 import org.junit.jupiter.api.*
-import org.junit.jupiter.api.Assertions.*
+import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Assertions.assertThrows
 import org.mockito.Mockito.*
 import org.mockito.kotlin.anyOrNull
 import java.io.File
@@ -20,6 +22,7 @@ import java.nio.file.Path
 class ImageServiceTest {
     private lateinit var imageRepository: ImageRepository
     private lateinit var imageStorage: ImageStorage
+    private lateinit var messageQueue: MessageQueue
     private lateinit var imageService: ImageService
     private lateinit var fileUpload: FileUpload
 
@@ -27,13 +30,14 @@ class ImageServiceTest {
     fun setUp() {
         imageRepository = mock(ImageRepository::class.java)
         imageStorage = mock(ImageStorage::class.java)
+        messageQueue = mock(MessageQueue::class.java)
         fileUpload = mock(DefaultFileUpload::class.java)
-        imageService = ImageService(imageRepository, imageStorage, "5242880", "image/png,image/jpeg,image/jpg,image/avif,image/webp")
+        imageService = ImageService(imageRepository, imageStorage, messageQueue, "5242880", "image/png,image/jpeg,image/jpg,image/avif,image/webp")
     }
 
     @BeforeEach
     fun reset() {
-        reset(imageRepository, imageStorage)
+        reset(imageRepository, imageStorage, messageQueue, fileUpload)
     }
 
     @Test

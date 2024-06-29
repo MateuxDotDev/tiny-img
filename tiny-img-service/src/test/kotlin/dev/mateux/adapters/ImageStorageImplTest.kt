@@ -4,8 +4,6 @@ import io.quarkus.test.junit.QuarkusTest
 import org.junit.jupiter.api.*
 import org.junit.jupiter.api.Assertions.*
 import java.io.File
-import java.time.LocalDate
-import java.time.format.DateTimeFormatter
 
 @QuarkusTest
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
