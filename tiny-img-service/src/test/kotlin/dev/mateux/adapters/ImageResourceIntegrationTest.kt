@@ -198,7 +198,7 @@ class ImageResourceIntegrationTest {
     @Test
     @Authenticate
     @Order(10)
-    fun `should throw an exception if size is not between 1% and 100%`() {
+    fun `should throw an exception if size is not between 1 and 100 percent`() {
         // Arrange
         val payloadA = mapOf(
             "quality" to 50,
