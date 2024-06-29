@@ -10,9 +10,9 @@ on:
       - uat
       - main
   pull_request:
-    types: [opened, synchronize, reopened]
     paths:
       - 'tiny-img-service/**'
+    types: [opened, synchronize, reopened]
 
 jobs:
   build:
