@@ -1,8 +1,8 @@
 package dev.mateux.adapters
 
 import dev.mateux.application.ImageService
-import dev.mateux.application.util.UploadItemSchema
 import dev.mateux.application.dto.OptimizationOptions
+import dev.mateux.application.util.UploadItemSchema
 import dev.mateux.domain.Roles
 import dev.mateux.domain.User
 import io.smallrye.common.annotation.RunOnVirtualThread
@@ -155,7 +155,6 @@ class ImageResource(
     }
 
     @GET
-    @Path("/all")
     @APIResponses(
         value = [
             APIResponse(
