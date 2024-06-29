@@ -104,4 +104,19 @@ class ImageService(
             size = options.size
         ))
     }
+
+    fun getMyImages(user: User): List<String> {
+        return imageRepository.getImagesByUserId(user.publicId).map { it.publicId }
+    }
+
+    @Transactional(rollbackOn = [Exception::class])
+    fun removeImage(imageId: String): Boolean {
+        val image = imageRepository.getImageByPublicId(imageId) ?: throw WebApplicationException("Image not found", 404)
+
+        if (imageRepository.removeImage(imageId)) {
+            return imageStorage.removeImageByPath(image.path)
+        }
+
+        return false
+    }
 }
