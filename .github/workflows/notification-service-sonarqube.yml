@@ -1,9 +1,9 @@
-name: Tiny Img Service - SonarQube Analysis
+name: Notification Service - SonarQube Analysis
 
 on:
   push:
     paths:
-      - 'tiny-img-service/**'
+      - 'notification-service/**'
     branches:
       - dev
       - qa
@@ -11,7 +11,7 @@ on:
       - main
   pull_request:
     paths:
-      - 'tiny-img-service/**'
+      - 'notification-service/**'
     types: [opened, synchronize, reopened]
 
 concurrency: 
@@ -25,7 +25,7 @@ jobs:
     defaults:
       run:
         shell: bash
-        working-directory: ./tiny-img-service
+        working-directory: ./notification-service
     steps:
       - uses: actions/checkout@v4
         with:
@@ -55,7 +55,7 @@ jobs:
         run: |
           ./mvnw -B verify \
           org.sonarsource.scanner.maven:sonar-maven-plugin:sonar \
-          -Dsonar.projectKey=tiny-img-service \
+          -Dsonar.projectKey=notification-service \
           -Dsonar.coverage.jacoco.xmlReportPaths=target/jacoco-report/jacoco.xml \
           -Dsonar.host.url=$SONAR_HOST_URL \
           -Dsonar.login=$SONAR_TOKEN

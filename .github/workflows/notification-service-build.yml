@@ -1,25 +1,28 @@
-name: Auth Service - Production
+name: Notification Service - Build
 
 on:
+  workflow_run:
+    workflows: ["Notification Service - SonarQube Analysis"]
+    types:
+      - completed
   push:
     paths:
-      - 'auth-service/**'
+      - 'notification-service/**'
     branches:
-      - main
+      - dev
 
 concurrency: 
   group: ${{ github.head_ref }}
   cancel-in-progress: true
 
 jobs:
-  tag-and-push-prod-image:
-    name: Tag and push the production image
+  docker:
+    name: Dockerize application
     runs-on: ubuntu-latest
     defaults:
       run:
         shell: bash
-        working-directory: ./auth-service
-
+        working-directory: ./notification-service
     steps:
       - name: Check out the repository
         uses: actions/checkout@v3
@@ -41,16 +44,9 @@ jobs:
           APP_VERSION=$(./mvnw -q -Dexec.executable=echo -Dexec.args='${project.version}' --non-recursive exec:exec)
           echo "APP_VERSION=$APP_VERSION" >> $GITHUB_ENV
 
-      - name: Pull the uat image
-        run: |
-          docker pull mateuxlucax/tiny-img:auth-service-uat-${{ env.APP_VERSION }}
-
-      - name: Tag the image with uat
-        run: |
-          docker tag mateuxlucax/tiny-img:auth-service-uat-${{ env.APP_VERSION }} mateuxlucax/tiny-img:auth-service-${{ env.APP_VERSION }}
-          docker tag mateuxlucax/tiny-img:auth-service-uat-${{ env.APP_VERSION }} mateuxlucax/tiny-img:auth-service
-
-      - name: Push the uat tags
-        run: |
-          docker push mateuxlucax/tiny-img:auth-service-${{ env.APP_VERSION }}
-          docker push mateuxlucax/tiny-img:auth-service
+      - name: Build and push
+        uses: docker/build-push-action@v6
+        with:
+          context: ./notification-service
+          push: true
+          tags: mateuxlucax/tiny-img:notification-service-dev,mateuxlucax/tiny-img:notification-service-dev-${{ env.APP_VERSION }}
