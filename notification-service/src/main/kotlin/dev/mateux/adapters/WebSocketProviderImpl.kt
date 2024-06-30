@@ -7,7 +7,6 @@ import jakarta.enterprise.context.ApplicationScoped
 import jakarta.inject.Inject
 import jakarta.websocket.OnClose
 import jakarta.websocket.OnError
-import jakarta.websocket.OnMessage
 import jakarta.websocket.OnOpen
 import jakarta.websocket.Session
 import jakarta.websocket.server.PathParam
