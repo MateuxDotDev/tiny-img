@@ -25,11 +25,14 @@ class WebSocketProviderImpl(
         } ?: false
     }
 
-    fun validateToken(session: Session, token: String): Boolean {
+    private fun validateToken(session: Session, token: String): Boolean {
+        var subject = ""
         try {
-            WebSocketInstances.sessions[jwtParser.parse(token).subject] = session
+            subject = jwtParser.parse(token).subject
+            WebSocketInstances.sessions[subject] = session
             return true
         } catch (e: Exception) {
+            WebSocketInstances.sessions.remove(subject)
             session.asyncRemote.sendText("Invalid token")
             session.close()
         }
@@ -52,12 +55,5 @@ class WebSocketProviderImpl(
     @OnError
     fun onError(session: Session, @PathParam("token") token: String, throwable: Throwable) {
         WebSocketInstances.sessions.remove(jwtParser.parse(token).subject)
-    }
-
-    @OnMessage
-    fun onMessage(session: Session, @PathParam("token") token: String) {
-        if (validateToken(session, token)) {
-            session.asyncRemote.sendText("Token validated")
-        }
     }
 }

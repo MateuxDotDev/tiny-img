@@ -16,8 +16,6 @@
     <skipITs>true</skipITs>
     <surefire-plugin.version>3.2.5</surefire-plugin.version>
     <jacoco.version>0.8.12</jacoco.version>
-    <sonar.exclusions>**/Roles.kt,**/*Test.kt,**/util/**</sonar.exclusions>
-    <sonar.cpd.exclusions>**/ImageResource.kt</sonar.cpd.exclusions>
   </properties>
   <dependencyManagement>
     <dependencies>
@@ -46,10 +44,6 @@
     <dependency>
       <groupId>io.quarkus</groupId>
       <artifactId>quarkus-smallrye-jwt-build</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>io.quarkus</groupId>
-      <artifactId>quarkus-smallrye-openapi</artifactId>
     </dependency>
     <dependency>
       <groupId>io.quarkus</groupId>
