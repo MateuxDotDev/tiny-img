@@ -4,13 +4,16 @@ updates:
     directory: "/auth-service"
     schedule:
       interval: "weekly"
+    target-branch: "dev"
 
   - package-ecosystem: "maven"
     directory: "/tiny-img-service"
     schedule:
       interval: "weekly"
+    target-branch: "dev"
 
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
       interval: "weekly"
+    target-branch: "dev"
