@@ -1,9 +1,9 @@
-name: Auth Service - Quality Assurance (QA)
+name: Notification Service - Quality Assurance (QA)
 
 on:
   push:
     paths:
-      - 'auth-service/**'
+      - 'notification-service/**'
     branches:
       - qa
 
@@ -18,11 +18,11 @@ jobs:
     defaults:
       run:
         shell: bash
-        working-directory: ./auth-service
+        working-directory: ./notification-service
 
     steps:
       - name: Check out the repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v3
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
@@ -43,14 +43,14 @@ jobs:
 
       - name: Pull the dev image
         run: |
-          docker pull mateuxlucax/tiny-img:auth-service-dev-${{ env.APP_VERSION }}
+          docker pull mateuxlucax/tiny-img:notification-service-dev-${{ env.APP_VERSION }}
 
       - name: Tag the image with qa
         run: |
-          docker tag mateuxlucax/tiny-img:auth-service-dev-${{ env.APP_VERSION }} mateuxlucax/tiny-img:auth-service-qa-${{ env.APP_VERSION }}
-          docker tag mateuxlucax/tiny-img:auth-service-dev-${{ env.APP_VERSION }} mateuxlucax/tiny-img:auth-service-qa
+          docker tag mateuxlucax/tiny-img:notification-service-dev-${{ env.APP_VERSION }} mateuxlucax/tiny-img:notification-service-qa-${{ env.APP_VERSION }}
+          docker tag mateuxlucax/tiny-img:notification-service-dev-${{ env.APP_VERSION }} mateuxlucax/tiny-img:notification-service-qa
 
       - name: Push the qa tags
         run: |
-          docker push mateuxlucax/tiny-img:auth-service-qa-${{ env.APP_VERSION }}
-          docker push mateuxlucax/tiny-img:auth-service-qa
+          docker push mateuxlucax/tiny-img:notification-service-qa-${{ env.APP_VERSION }}
+          docker push mateuxlucax/tiny-img:notification-service-qa

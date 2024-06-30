@@ -1,28 +1,28 @@
-name: Auth Service - User Acceptance Testing (UAT)
+name: Notification Service - Production
 
 on:
   push:
     paths:
-      - 'auth-service/**'
+      - 'notification-service/**'
     branches:
-      - uat
+      - main
 
 concurrency: 
   group: ${{ github.head_ref }}
   cancel-in-progress: true
 
 jobs:
-  tag-and-push-uat-image:
-    name: Tag and push the UAT image
+  tag-and-push-prod-image:
+    name: Tag and push the production image
     runs-on: ubuntu-latest
     defaults:
       run:
         shell: bash
-        working-directory: ./auth-service
+        working-directory: ./notification-service
 
     steps:
       - name: Check out the repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v3
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
@@ -41,16 +41,16 @@ jobs:
           APP_VERSION=$(./mvnw -q -Dexec.executable=echo -Dexec.args='${project.version}' --non-recursive exec:exec)
           echo "APP_VERSION=$APP_VERSION" >> $GITHUB_ENV
 
-      - name: Pull the qa image
+      - name: Pull the uat image
         run: |
-          docker pull mateuxlucax/tiny-img:auth-service-qa-${{ env.APP_VERSION }}
+          docker pull mateuxlucax/tiny-img:notification-service-uat-${{ env.APP_VERSION }}
 
       - name: Tag the image with uat
         run: |
-          docker tag mateuxlucax/tiny-img:auth-service-qa-${{ env.APP_VERSION }} mateuxlucax/tiny-img:auth-service-uat-${{ env.APP_VERSION }}
-          docker tag mateuxlucax/tiny-img:auth-service-qa-${{ env.APP_VERSION }} mateuxlucax/tiny-img:auth-service-uat
+          docker tag mateuxlucax/tiny-img:notification-service-uat-${{ env.APP_VERSION }} mateuxlucax/tiny-img:notification-service-${{ env.APP_VERSION }}
+          docker tag mateuxlucax/tiny-img:notification-service-uat-${{ env.APP_VERSION }} mateuxlucax/tiny-img:notification-service
 
       - name: Push the uat tags
         run: |
-          docker push mateuxlucax/tiny-img:auth-service-uat-${{ env.APP_VERSION }}
-          docker push mateuxlucax/tiny-img:auth-service-uat
+          docker push mateuxlucax/tiny-img:notification-service-${{ env.APP_VERSION }}
+          docker push mateuxlucax/tiny-img:notification-service

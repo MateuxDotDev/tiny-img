@@ -1,19 +1,20 @@
-# ADR 1: Socket.io as WebSocket Library 
+# ADR 1: Quarkus as Backend Framework
 
-Socket.io is performant, reliable, and has a rich ecosystem of libraries and tools that will help us build a secure and scalable WebSocket server.
+Quarkus was created to enable Java developers to create applications for a modern, cloud-native world. Quarkus is a Kubernetes-native Java framework tailored for GraalVM and HotSpot, crafted from best-of-breed Java libraries and standards. The goal is to make Java the leading platform in Kubernetes and serverless environments while offering developers a framework to address a wider range of distributed application architectures.
 
 ## Decision 
 
-Socket.io will be used as the WebSocket library for the image processing application.
+Use Quarkus as the backend framework for the auth service.
 
 ## Rationale 
 
-Socket.io became the industry standard for building real-time applications.
+Simple, fast, lightweight and able to generate native executables. Quarkus is a great choice for building the backend of the auth service because it is well-suited for building scalable and reliable applications.
 
 ## Status
-Proposed
+
+Accepted
 
 ## Consequences
 
-- Clients must use Socket.io to connect to the WebSocket server.
-- All WebSocket related tasks will be done using Socket.io.
+- Quarkus will be used for building the backend of the auth service.
+- Extensions must be compatible with Quarkus.

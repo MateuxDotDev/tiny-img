@@ -1,9 +1,9 @@
-name: Auth Service - User Acceptance Testing (UAT)
+name: Notification Service - User Acceptance Testing (UAT)
 
 on:
   push:
     paths:
-      - 'auth-service/**'
+      - 'notification-service/**'
     branches:
       - uat
 
@@ -18,11 +18,11 @@ jobs:
     defaults:
       run:
         shell: bash
-        working-directory: ./auth-service
+        working-directory: ./notification-service
 
     steps:
       - name: Check out the repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v3
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
@@ -43,14 +43,14 @@ jobs:
 
       - name: Pull the qa image
         run: |
-          docker pull mateuxlucax/tiny-img:auth-service-qa-${{ env.APP_VERSION }}
+          docker pull mateuxlucax/tiny-img:notification-service-qa-${{ env.APP_VERSION }}
 
       - name: Tag the image with uat
         run: |
-          docker tag mateuxlucax/tiny-img:auth-service-qa-${{ env.APP_VERSION }} mateuxlucax/tiny-img:auth-service-uat-${{ env.APP_VERSION }}
-          docker tag mateuxlucax/tiny-img:auth-service-qa-${{ env.APP_VERSION }} mateuxlucax/tiny-img:auth-service-uat
+          docker tag mateuxlucax/tiny-img:notification-service-qa-${{ env.APP_VERSION }} mateuxlucax/tiny-img:notification-service-uat-${{ env.APP_VERSION }}
+          docker tag mateuxlucax/tiny-img:notification-service-qa-${{ env.APP_VERSION }} mateuxlucax/tiny-img:notification-service-uat
 
       - name: Push the uat tags
         run: |
-          docker push mateuxlucax/tiny-img:auth-service-uat-${{ env.APP_VERSION }}
-          docker push mateuxlucax/tiny-img:auth-service-uat
+          docker push mateuxlucax/tiny-img:notification-service-uat-${{ env.APP_VERSION }}
+          docker push mateuxlucax/tiny-img:notification-service-uat

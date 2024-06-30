@@ -1,0 +1,16 @@
+services:
+  notification-service:
+    image: mateuxlucax/tiny-img:notification-service-local
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    hostname: notification-service
+    container_name: notification-service
+    ports:
+      - "80:80"
+    env_file:
+      - .env
+    depends_on:
+      - tiny-img-database
+      - tiny-img-queue
