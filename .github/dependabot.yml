@@ -3,17 +3,29 @@ updates:
   - package-ecosystem: "maven"
     directory: "/auth-service"
     schedule:
-      interval: "weekly"
+      interval: "daily"
     target-branch: "dev"
 
   - package-ecosystem: "maven"
     directory: "/tiny-img-service"
     schedule:
-      interval: "weekly"
+      interval: "daily"
+    target-branch: "dev"
+
+  - package-ecosystem: "maven"
+    directory: "/notification-service"
+    schedule:
+      interval: "daily"
+    target-branch: "dev"
+
+  - package-ecosystem: "gomod"
+    directory: "/ffmpeg-service"
+    schedule:
+      interval: "daily"
     target-branch: "dev"
 
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
-      interval: "weekly"
+      interval: "daily"
     target-branch: "dev"
