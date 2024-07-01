@@ -10,11 +10,12 @@ import (
 )
 
 type Environment struct {
-	RabbitMQURL          string `env:"RABBITMQ_URL"`
+	RabbitMQHost         string `env:"RABBITMQ_HOST"`
+	RabbitMQPort         string `env:"RABBITMQ_PORT"`
+	RabbitMQUser         string `env:"RABBITMQ_USER"`
+	RabbitMQPassword     string `env:"RABBITMQ_PASSWORD"`
 	RabbitMQQueueName    string `env:"RABBITMQ_QUEUE_NAME"`
 	RabbitMQConsumerName string `env:"RABBITMQ_CONSUMER_NAME"`
-	BasePath             string `env:"BASE_PATH"`
-	SupportedExtensions  string `env:"SUPPORTED_EXTENSIONS"`
 }
 
 var (
