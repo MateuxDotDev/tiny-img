@@ -3,7 +3,7 @@ name: FFmpeg Service - User Acceptance Testing (UAT)
 on:
   push:
     paths:
-      - 'ffmpeg-service-service/**'
+      - 'ffmpeg-service/**'
     branches:
       - uat
 
@@ -14,7 +14,7 @@ jobs:
     defaults:
       run:
         shell: bash
-        working-directory: ./ffmpeg-service-service
+        working-directory: ./ffmpeg-service
 
     steps:
       - name: Check out the repository
@@ -39,14 +39,14 @@ jobs:
 
       - name: Pull the qa image
         run: |
-          docker pull mateuxlucax/tiny-img:ffmpeg-service-service-qa-${{ env.APP_VERSION }}
+          docker pull mateuxlucax/tiny-img:ffmpeg-service-qa-${{ env.APP_VERSION }}
 
       - name: Tag the image with uat
         run: |
-          docker tag mateuxlucax/tiny-img:ffmpeg-service-service-qa-${{ env.APP_VERSION }} mateuxlucax/tiny-img:ffmpeg-service-service-uat-${{ env.APP_VERSION }}
-          docker tag mateuxlucax/tiny-img:ffmpeg-service-service-qa-${{ env.APP_VERSION }} mateuxlucax/tiny-img:ffmpeg-service-service-uat
+          docker tag mateuxlucax/tiny-img:ffmpeg-service-qa-${{ env.APP_VERSION }} mateuxlucax/tiny-img:ffmpeg-service-uat-${{ env.APP_VERSION }}
+          docker tag mateuxlucax/tiny-img:ffmpeg-service-qa-${{ env.APP_VERSION }} mateuxlucax/tiny-img:ffmpeg-service-uat
 
       - name: Push the uat tags
         run: |
-          docker push mateuxlucax/tiny-img:ffmpeg-service-service-uat-${{ env.APP_VERSION }}
-          docker push mateuxlucax/tiny-img:ffmpeg-service-service-uat
+          docker push mateuxlucax/tiny-img:ffmpeg-service-uat-${{ env.APP_VERSION }}
+          docker push mateuxlucax/tiny-img:ffmpeg-service-uat

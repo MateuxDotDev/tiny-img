@@ -14,7 +14,7 @@ jobs:
     defaults:
       run:
         shell: bash
-        working-directory: ./ffmpeg-service-service
+        working-directory: ./ffmpeg-service
     steps:
       - name: Check out the repository
         uses: actions/checkout@v4
@@ -39,6 +39,6 @@ jobs:
       - name: Build and push
         uses: docker/build-push-action@v6
         with:
-          context: ./ffmpeg-service-service
+          context: ./ffmpeg-service
           push: true
-          tags: mateuxlucax/tiny-img:ffmpeg-service-service-dev,mateuxlucax/tiny-img:ffmpeg-service-service-dev-${{ env.APP_VERSION }}
+          tags: mateuxlucax/tiny-img:ffmpeg-service-dev,mateuxlucax/tiny-img:ffmpeg-service-dev-${{ env.APP_VERSION }}
