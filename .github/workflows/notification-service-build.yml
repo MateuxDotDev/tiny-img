@@ -1,13 +1,13 @@
 name: Notification Service - Build
 
 on:
-  workflow_run:
-    workflows: ["Notification Service - SonarQube Analysis"]
-    types:
-      - completed
+  # workflow_run:
+  #   workflows: ["Notification Service - SonarQube Analysis"]
+  #   types:
+  #     - completed
   push:
-    paths:
-      - 'notification-service/**'
+    # paths:
+    #   - 'notification-service/**'
     branches:
       - dev
 
