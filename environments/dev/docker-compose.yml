@@ -107,7 +107,7 @@ services:
     container_name: tiny-img-prometheus
     volumes:
       - ./prometheus.yml:/etc/prometheus/prometheus.yml
-      - ./prometheus:/prometheus
+      - tiny-img-dev-prometheus-data:/prometheus
     restart: unless-stopped
     command:
       - "--config.file=/etc/prometheus/prometheus.yml"
@@ -124,7 +124,7 @@ services:
     image: grafana/grafana-oss:10.3.7 
     container_name: tiny-img-grafana
     volumes:
-      - ./grafana:/var/lib/grafana
+      - tiny-img-dev-grafana-data:/var/lib/grafana
     restart: unless-stopped
     depends_on:
       - tiny-img-prometheus
@@ -134,3 +134,9 @@ services:
 networks:
   tiny-img:
     external: true
+
+volumes:
+  tiny-img-dev-prometheus-data:
+    driver: local
+  tiny-img-dev-grafana-data:
+    driver: local
