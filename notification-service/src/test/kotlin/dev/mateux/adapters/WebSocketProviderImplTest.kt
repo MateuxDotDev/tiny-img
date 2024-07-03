@@ -4,11 +4,7 @@ import dev.mateux.application.WebSocketInstances
 import io.quarkus.test.junit.QuarkusTest
 import io.smallrye.jwt.auth.principal.JWTParser
 import jakarta.websocket.Session
-import org.junit.jupiter.api.AfterEach
-import org.junit.jupiter.api.BeforeAll
-import org.junit.jupiter.api.DisplayName
-import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.TestInstance
+import org.junit.jupiter.api.*
 import org.mockito.Mockito.*
 import kotlin.test.assertFalse
 import kotlin.test.assertTrue

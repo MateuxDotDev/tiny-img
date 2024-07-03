@@ -3,18 +3,12 @@ package dev.mateux.adapters
 import dev.mateux.ports.WebSocketProvider
 import io.quarkus.test.junit.QuarkusTest
 import io.vertx.core.json.JsonObject
-import org.eclipse.microprofile.reactive.messaging.Message
-import org.junit.jupiter.api.AfterEach
-import org.junit.jupiter.api.Assertions.*
-import org.junit.jupiter.api.BeforeAll
-import org.junit.jupiter.api.DisplayName
-import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.TestInstance
-import org.mockito.Mockito.*
+import org.junit.jupiter.api.*
+import org.mockito.Mockito.mock
+import org.mockito.Mockito.`when`
 import org.mockito.kotlin.anyOrNull
 import org.mockito.kotlin.reset
 import org.mockito.kotlin.verify
-import java.util.concurrent.CompletableFuture
 
 @QuarkusTest
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
