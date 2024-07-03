@@ -1,19 +1,20 @@
-# ADR 2: TypeScript as Backend Language
+# ADR 2: Kotlin as Backend Framework Language
 
-TypeScript is basically a linter for JavaScript, but it is a great choice for the image processing application because it is well-suited for building scalable and reliable applications.
+Kotlin is a modern programming language that is fully interoperable with Java. It is a great choice for building the backend of the auth service because it is well-suited for building scalable and reliable applications.
 
 ## Decision 
 
-TypeScript will be used as the backend language for the image processing application.
+Use Kotlin as the backend framework language for the auth service.
 
 ## Rationale 
 
-TypeScript is the main language behind Socket.io, and it is easy to use, alongside its type safety, which is essential for building a secure and scalable image processing application.
+Easy to use, able to integrate with Java code libraries with null safety and functional programming features. Kotlin is a great choice for building the backend of the auth service because it is well-suited for building scalable and reliable applications.
 
 ## Status
-Proposed
+
+Accepted
 
 ## Consequences
 
-- TypeScript will be used for the backend of the image processing application.
-- All backend related tasks will be done using TypeScript.
+- Kotlin will be used for building the backend of the auth service.
+- All backend related tasks will be done using Kotlin.

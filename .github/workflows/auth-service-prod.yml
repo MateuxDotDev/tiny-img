@@ -2,8 +2,8 @@ name: Auth Service - Production
 
 on:
   push:
-    paths:
-      - 'auth-service/**'
+    # paths:
+    #   - 'auth-service/**'
     branches:
       - main
 

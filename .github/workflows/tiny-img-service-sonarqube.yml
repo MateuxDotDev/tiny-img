@@ -2,8 +2,8 @@ name: Tiny Img Service - SonarQube Analysis
 
 on:
   push:
-    paths:
-      - 'tiny-img-service/**'
+    # paths:
+    #   - 'tiny-img-service/**'
     branches:
       - dev
       - qa

@@ -2,8 +2,8 @@ name: Tiny Img Service - Quality Assurance (QA)
 
 on:
   push:
-    paths:
-      - 'tiny-img-service/**'
+    # paths:
+    #   - 'tiny-img-service/**'
     branches:
       - qa
 

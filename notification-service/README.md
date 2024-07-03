@@ -1,10 +1,10 @@
 # Notification Service
 
-![Socket.io](https://img.shields.io/badge/Socket.io-black?style=for-the-badge&logo=socket.io&badgeColor=010101)
+![Quarkus](https://img.shields.io/badge/quarkus-%234794EB.svg?style=for-the-badge&logo=quarkus&logoColor=white)
+![Kotlin](https://img.shields.io/badge/kotlin-%237F52FF.svg?style=for-the-badge&logo=kotlin&logoColor=white)
 ![RabbitMQ](https://img.shields.io/badge/Rabbitmq-FF6600?style=for-the-badge&logo=rabbitmq&logoColor=white)
-![TypeScript](https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white)
 
-This project is responsible for notifying users about the status of their image processing process.
+This project is responsible for sending notifications to user through websockets implemented using Quarkus.
 
 ## Architecture
 
@@ -12,13 +12,40 @@ This project is responsible for notifying users about the status of their image 
 
 ## Design pattern
 
-- Event Driven Architecture
+- Clean Architecture
 
 ## ADRs
 
-- [TypeScript as Backend Language](./adr/ADR1.md)
-- [Socket.io as Real-time Communication Tool](./adr/ADR2.md)
+- [Quarkus as Backend Framework](./adr/ADR1.md)
+- [Kotlin as Backend Framework Language](./adr/ADR2.md)
 
-## SOLID
+## How to run
 
-> _*WIP*_
+### Requirements
+
+- Docker
+- Java 21
+- Quarkus CLI (optional)
+
+### Configuration
+
+Then, set up the configuration files in the `.env` file. You can use the `.env.example` file as a template.
+You should also copy or generate the `publicKey.pem` and `privateKey.pem` from auth-service and place them in the `src/main/resources` folder.
+
+### Running the application
+
+To run in development mode, you can use the following command:
+
+```shell
+./mvnw quarkus:dev
+```
+
+### Running using Docker
+
+To run the application using Docker, you can use the following command:
+
+```shell
+docker compose up
+```
+
+Be aware that are needed dependencies to run the application, such as the database and the message broker and database. You can find info about them in the `docker-compose.yml` file.

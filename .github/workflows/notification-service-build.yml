@@ -1,0 +1,48 @@
+name: Notification Service - Build
+
+on:
+  workflow_run:
+    workflows: ["Notification Service - SonarQube Analysis"]
+    types:
+      - completed
+  push:
+    # paths:
+    #   - 'notification-service/**'
+    branches:
+      - dev
+
+jobs:
+  docker:
+    name: Dockerize application
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
+        working-directory: ./notification-service
+    steps:
+      - name: Check out the repository
+        uses: actions/checkout@v4
+
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v3
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Login to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Extract Maven project version
+        run: |
+          APP_VERSION=$(./mvnw -q -Dexec.executable=echo -Dexec.args='${project.version}' --non-recursive exec:exec)
+          echo "APP_VERSION=$APP_VERSION" >> $GITHUB_ENV
+
+      - name: Build and push
+        uses: docker/build-push-action@v6
+        with:
+          context: ./notification-service
+          push: true
+          tags: mateuxlucax/tiny-img:notification-service-dev,mateuxlucax/tiny-img:notification-service-dev-${{ env.APP_VERSION }}

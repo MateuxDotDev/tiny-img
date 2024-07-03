@@ -6,8 +6,8 @@ on:
     types:
       - completed
   push:
-    paths:
-      - 'tiny-img-service/**'
+    # paths:
+    #   - 'tiny-img-service/**'
     branches:
       - dev
 

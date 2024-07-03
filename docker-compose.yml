@@ -4,3 +4,5 @@ include:
   - auth-service/docker-compose.yml
   - message-queue/docker-compose.yml
   - tiny-img-service/docker-compose.yml
+  - notification-service/docker-compose.yml
+  - ffmpeg-service/docker-compose.yml
