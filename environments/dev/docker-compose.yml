@@ -1,8 +1,8 @@
 services:
-  database:
-    container_name: database
+  tiny-img-database:
+    container_name: tiny-img-database
     image: postgres:16.3-alpine
-    hostname: database
+    hostname: tiny-img-database
     env_file:
       - .database.env
     restart: unless-stopped
@@ -14,11 +14,13 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
+    networks:
+      - tiny-img
 
-  message-queue:
+  tiny-img-message-queue:
     image: rabbitmq:3.13-management-alpine
-    container_name: message-queue
-    hostname: message-queue
+    container_name: tiny-img-message-queue
+    hostname: tiny-img-message-queue
     env_file:
     - .message-queue.env
     restart: unless-stopped
@@ -28,28 +30,32 @@ services:
       timeout: 10s
       retries: 5
       start_period: 10s
+    networks:
+      - tiny-img
 
-  network:
+  tiny-img-network:
     image: nginx:1.27.0-alpine
-    container_name: network
-    ports:
-      - "80:80"
+    container_name: tiny-img-network
     volumes:
       - ../../network/nginx.conf:/etc/nginx/nginx.conf:ro
     depends_on:
-      - auth-service
+      - tiny-img-auth-service
       - tiny-img-service
+    networks:
+      - tiny-img
 
-  auth-service:
+  tiny-img-auth-service:
     image: mateuxlucax/tiny-img:auth-service-dev
     container_name: auth-service
-    hostname: auth-service
+    hostname: tiny-img-auth-service
     env_file:
       - .auth.env
     depends_on:
-      database:
+      tiny-img-database:
         condition: service_healthy
     platform: linux/x86_64
+    networks:
+      - tiny-img
 
   tiny-img-service:
     image: mateuxlucax/tiny-img:tiny-img-service-dev
@@ -60,39 +66,45 @@ services:
     volumes:
       - ./tmp:/tmp/tiny-img
     depends_on:
-      database:
+      tiny-img-database:
         condition: service_healthy
-      message-queue:
+      tiny-img-message-queue:
         condition: service_healthy
     platform: linux/x86_64
+    networks:
+      - tiny-img
 
-  notification-service:
+  tiny-img-notification-service:
     image: mateuxlucax/tiny-img:notification-service-dev
-    container_name: notification-service
-    hostname: notification-service
+    container_name: tiny-img-notification-service
+    hostname: tiny-img-notification-service
     env_file:
       - .notification.env
     depends_on:
-      message-queue:
+      tiny-img-message-queue:
         condition: service_healthy
     platform: linux/x86_64
+    networks:
+      - tiny-img
 
-  ffmpeg-service:
+  tiny-img-ffmpeg-service:
     image: mateuxlucax/tiny-img:ffmpeg-service-dev
-    container_name: ffmpeg-service
-    hostname: ffmpeg-service
+    container_name: tiny-img-ffmpeg-service
+    hostname: tiny-img-ffmpeg-service
     env_file:
       - .ffmpeg.env
     depends_on:
-      message-queue:
+      tiny-img-message-queue:
         condition: service_healthy
     volumes:
       - ./tmp:/tmp/tiny-img
     platform: linux/x86_64
+    networks:
+      - tiny-img
 
-  prometheus:
+  tiny-img-prometheus:
     image: prom/prometheus:v2.45.6
-    container_name: prometheus
+    container_name: tiny-img-prometheus
     volumes:
       - ./prometheus.yml:/etc/prometheus/prometheus.yml
       - ./prometheus:/prometheus
@@ -100,21 +112,25 @@ services:
     command:
       - "--config.file=/etc/prometheus/prometheus.yml"
       - "--storage.tsdb.retention.time=1y"
-    ports:
-      - "9090:9090"
+    networks:
+      - tiny-img
     depends_on:
-      - auth-service
+      - tiny-img-auth-service
       - tiny-img-service
-      - notification-service
-      - ffmpeg-service
+      - tiny-img-notification-service
+      - tiny-img-ffmpeg-service
 
-  grafana:
+  tiny-img-grafana:
     image: grafana/grafana-oss:10.3.7 
-    container_name: grafana
+    container_name: tiny-img-grafana
     volumes:
       - ./grafana:/var/lib/grafana
     restart: unless-stopped
-    ports:
-      - "3000:3000"
     depends_on:
-      - prometheus
+      - tiny-img-prometheus
+    networks:
+      - tiny-img
+
+networks:
+  tiny-img:
+    external: true
