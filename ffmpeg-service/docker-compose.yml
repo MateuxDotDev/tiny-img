@@ -1,0 +1,15 @@
+services:
+  ffmpeg-service:
+    image: mateuxlucax/tiny-img:ffmpeg-service-local
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    hostname: ffmpeg-service
+    container_name: ffmpeg-service
+    ports:
+      - "8000:8000"
+    env_file:
+      - .env
+    # depends_on:
+    #   - tiny-img-queue
