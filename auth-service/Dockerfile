@@ -1,5 +1,4 @@
 FROM quay.io/quarkus/ubi-quarkus-mandrel-builder-image:jdk-21 AS build
-USER quarkus
 
 WORKDIR /code
 
@@ -19,6 +18,5 @@ WORKDIR /work/
 COPY --from=build /code/target/*-runner /work/application
 RUN chmod 775 /work
 
-USER quarkus
 EXPOSE 8080
 CMD ["./application", "-Dquarkus.http.host=0.0.0.0"]

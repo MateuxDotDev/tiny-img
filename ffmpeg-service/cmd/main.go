@@ -43,7 +43,7 @@ func main() {
 }
 
 func startMetrics(env *environment.Environment) {
-	http.Handle("/metrics", promhttp.Handler())
+	http.Handle("/q/metrics", promhttp.Handler())
 	http.ListenAndServe(":"+env.MetricsPort, nil)
 }
 
