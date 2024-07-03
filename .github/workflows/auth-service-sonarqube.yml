@@ -14,10 +14,6 @@ on:
       - 'auth-service/**'
     types: [opened, synchronize, reopened]
 
-concurrency: 
-  group: ${{ github.head_ref }}
-  cancel-in-progress: true
-
 jobs:
   build:
     name: Build and analyze

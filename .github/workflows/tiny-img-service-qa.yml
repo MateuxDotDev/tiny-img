@@ -7,10 +7,6 @@ on:
     branches:
       - qa
 
-concurrency: 
-  group: ${{ github.head_ref }}
-  cancel-in-progress: true
-
 jobs:
   tag-and-push-qa-image:
     name: Tag and push the QA image

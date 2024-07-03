@@ -7,10 +7,6 @@ on:
     branches:
       - uat
 
-concurrency: 
-  group: ${{ github.head_ref }}
-  cancel-in-progress: true
-
 jobs:
   tag-and-push-uat-image:
     name: Tag and push the UAT image
