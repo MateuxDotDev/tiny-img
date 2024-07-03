@@ -5,12 +5,8 @@ import dev.mateux.application.util.JwtUtil
 import dev.mateux.ports.BCryptUtil
 import dev.mateux.ports.UserRepository
 import jakarta.ws.rs.WebApplicationException
+import org.junit.jupiter.api.*
 import org.junit.jupiter.api.Assertions.*
-import org.junit.jupiter.api.BeforeAll
-import org.junit.jupiter.api.BeforeEach
-import org.junit.jupiter.api.DisplayName
-import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.TestInstance
 import org.mockito.Mockito.*
 import org.mockito.kotlin.anyOrNull
 
