@@ -9,6 +9,11 @@ services:
     volumes:
       - ../../database/initdb.sql:/docker-entrypoint-initdb.d/script.sql
       - ./database:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
   message-queue:
     image: rabbitmq:3.13-management-alpine
@@ -17,6 +22,12 @@ services:
     env_file:
     - .message-queue.env
     restart: unless-stopped
+    healthcheck:
+      test: rabbitmq-diagnostics -q ping
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 10s
 
   network:
     image: nginx:1.27.0-alpine
@@ -36,7 +47,8 @@ services:
     env_file:
       - .auth.env
     depends_on:
-      - database
+      database:
+        condition: service_healthy
     platform: linux/x86_64
 
   tiny-img-service:
@@ -48,8 +60,10 @@ services:
     volumes:
       - ./tmp:/tmp/tiny-img
     depends_on:
-      - database
-      - message-queue
+      database:
+        condition: service_healthy
+      message-queue:
+        condition: service_healthy
     platform: linux/x86_64
 
   notification-service:
@@ -59,7 +73,8 @@ services:
     env_file:
       - .notification.env
     depends_on:
-      - message-queue
+      message-queue:
+        condition: service_healthy
     platform: linux/x86_64
 
   ffmpeg-service:
@@ -69,7 +84,8 @@ services:
     env_file:
       - .ffmpeg.env
     depends_on:
-      - message-queue
+      message-queue:
+        condition: service_healthy
     volumes:
       - ./tmp:/tmp/tiny-img
     platform: linux/x86_64
