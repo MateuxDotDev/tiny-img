@@ -2,8 +2,8 @@ name: Notification Service - Quality Assurance (QA)
 
 on:
   push:
-    paths:
-      - 'notification-service/**'
+    # paths:
+    #   - 'notification-service/**'
     branches:
       - qa
 

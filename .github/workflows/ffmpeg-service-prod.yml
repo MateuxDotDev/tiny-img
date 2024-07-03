@@ -2,8 +2,8 @@ name: FFmpeg Service - Production
 
 on:
   push:
-    paths:
-      - 'ffmpeg-service/**'
+    # paths:
+    #   - 'ffmpeg-service/**'
     branches:
       - main
 

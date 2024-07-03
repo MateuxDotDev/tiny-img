@@ -2,8 +2,8 @@ name: Tiny Img Service - User Acceptance Testing (UAT)
 
 on:
   push:
-    paths:
-      - 'tiny-img-service/**'
+    # paths:
+    #   - 'tiny-img-service/**'
     branches:
       - uat
 

@@ -2,8 +2,8 @@ name: Notification Service - User Acceptance Testing (UAT)
 
 on:
   push:
-    paths:
-      - 'notification-service/**'
+    # paths:
+    #   - 'notification-service/**'
     branches:
       - uat
 

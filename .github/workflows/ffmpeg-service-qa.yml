@@ -2,8 +2,8 @@ name: FFmpeg Service - Quality Assurance (QA)
 
 on:
   push:
-    paths:
-      - 'ffmpeg-service/**'
+    # paths:
+    #   - 'ffmpeg-service/**'
     branches:
       - qa
 

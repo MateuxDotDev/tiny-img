@@ -2,8 +2,8 @@ name: Notification Service - SonarQube Analysis
 
 on:
   push:
-    paths:
-      - 'notification-service/**'
+    # paths:
+    #   - 'notification-service/**'
     branches:
       - dev
       - qa

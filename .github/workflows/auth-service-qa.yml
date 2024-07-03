@@ -2,8 +2,8 @@ name: Auth Service - Quality Assurance (QA)
 
 on:
   push:
-    paths:
-      - 'auth-service/**'
+    # paths:
+    #   - 'auth-service/**'
     branches:
       - qa
 

@@ -2,8 +2,8 @@ name: Notification Service - Production
 
 on:
   push:
-    paths:
-      - 'notification-service/**'
+    # paths:
+    #   - 'notification-service/**'
     branches:
       - main
 

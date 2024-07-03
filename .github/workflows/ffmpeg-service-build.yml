@@ -2,8 +2,8 @@ name: FFmpeg Service - Build
 
 on:
   push:
-    paths:
-      - 'ffmpeg-service/**'
+    # paths:
+    #   - 'ffmpeg-service/**'
     branches:
       - dev
 

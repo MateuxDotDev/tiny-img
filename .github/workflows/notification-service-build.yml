@@ -6,8 +6,8 @@ on:
     types:
       - completed
   push:
-    paths:
-      - 'notification-service/**'
+    # paths:
+    #   - 'notification-service/**'
     branches:
       - dev
 
