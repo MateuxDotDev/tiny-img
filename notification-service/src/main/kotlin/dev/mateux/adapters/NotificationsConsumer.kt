@@ -1,23 +1,22 @@
 package dev.mateux.adapters
 
-import dev.mateux.domain.Notification
 import dev.mateux.ports.WebSocketProvider
+import io.smallrye.common.annotation.RunOnVirtualThread
+import io.vertx.core.json.JsonObject
 import jakarta.enterprise.context.ApplicationScoped
 import jakarta.inject.Inject
 import org.eclipse.microprofile.reactive.messaging.Incoming
-import org.eclipse.microprofile.reactive.messaging.Message
-import java.util.concurrent.CompletionStage
+import org.jboss.logging.Logger
 
 @ApplicationScoped
 class NotificationsConsumer(
     @Inject private var webSocket: WebSocketProvider
 ) {
     @Incoming("notifications")
-    fun consumeNotification(notification: Message<Notification>): CompletionStage<Void> {
-        return if (webSocket.sendMessage(notification.payload.targetUser, notification.payload.message)) {
-            notification.ack()
-        } else {
-            notification.nack(RuntimeException("Failed to send notification"))
+    @RunOnVirtualThread
+    fun consumeNotification(notification: JsonObject) {
+        if (!webSocket.sendMessage(notification.getString("targetUser"), notification.getString("message"))) {
+            Logger.getLogger(NotificationsConsumer::class.java).warn("Failed to send notification")
         }
     }
 }

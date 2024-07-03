@@ -1,8 +1,8 @@
 package dev.mateux.adapters
 
-import dev.mateux.domain.Notification
 import dev.mateux.ports.WebSocketProvider
 import io.quarkus.test.junit.QuarkusTest
+import io.vertx.core.json.JsonObject
 import org.eclipse.microprofile.reactive.messaging.Message
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.Assertions.*
@@ -37,32 +37,30 @@ class NotificationsConsumerTest {
     @Test
     fun `should acquire if message is sent through websocket`() {
         // Arrange
-        val notification = Notification("message", "user")
-        val message = mock<Message<Notification>>()
-        `when`(message.payload).thenReturn(notification)
-        `when`(websocketProvider.sendMessage(notification.targetUser, notification.message)).thenReturn(true)
-        `when`(message.ack()).thenReturn(CompletableFuture.completedFuture(null))
+        val notification = mock<JsonObject>()
+        `when`(notification.getString("targetUser")).thenReturn("user")
+        `when`(notification.getString("message")).thenReturn("message")
+        `when`(websocketProvider.sendMessage(anyOrNull(), anyOrNull())).thenReturn(true)
 
         // Act
-        val result = notificationsConsumer.consumeNotification(message)
+        notificationsConsumer.consumeNotification(notification)
 
         // Assert
-        assertNull(result.toCompletableFuture().get())
+        verify(websocketProvider).sendMessage("user", "message")
     }
 
     @Test
-    fun `should not acquire if message is not sent through websocket`() {
+    fun `should acquire if message is not sent through websocket`() {
         // Arrange
-        val notification = Notification("message", "user")
-        val message = mock<Message<Notification>>()
-        `when`(message.payload).thenReturn(notification)
-        `when`(websocketProvider.sendMessage(notification.targetUser, notification.message)).thenReturn(false)
-        `when`(message.nack(anyOrNull())).thenReturn(CompletableFuture.completedFuture(null))
+        val notification = mock<JsonObject>()
+        `when`(notification.getString("targetUser")).thenReturn("user")
+        `when`(notification.getString("message")).thenReturn("message")
+        `when`(websocketProvider.sendMessage(anyOrNull(), anyOrNull())).thenReturn(false)
 
         // Act
-        val result = notificationsConsumer.consumeNotification(message)
+        notificationsConsumer.consumeNotification(notification)
 
         // Assert
-        assertNull(result.toCompletableFuture().get())
+        verify(websocketProvider).sendMessage("user", "message")
     }
 }

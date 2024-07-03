@@ -10,12 +10,15 @@ import (
 )
 
 type Environment struct {
-	RabbitMQHost         string `env:"RABBITMQ_HOST"`
-	RabbitMQPort         string `env:"RABBITMQ_PORT"`
-	RabbitMQUser         string `env:"RABBITMQ_USER"`
-	RabbitMQPassword     string `env:"RABBITMQ_PASSWORD"`
-	RabbitMQQueueName    string `env:"RABBITMQ_QUEUE_NAME"`
-	RabbitMQConsumerName string `env:"RABBITMQ_CONSUMER_NAME"`
+	MetricsPort                   string `env:"METRICS_PORT"`
+	RabbitMQHost                  string `env:"RABBITMQ_HOST"`
+	RabbitMQPort                  string `env:"RABBITMQ_PORT"`
+	RabbitMQRoutingKey            string `env:"RABBITMQ_ROUTING_KEY"`
+	RabbitMQUser                  string `env:"RABBITMQ_USER"`
+	RabbitMQPassword              string `env:"RABBITMQ_PASSWORD"`
+	RabbitMQOptimizeQueueName     string `env:"RABBITMQ_OPTIMIZE_QUEUE_NAME"`
+	RabbitMQNotificationQueueName string `env:"RABBITMQ_NOTIFICATION_QUEUE_NAME"`
+	RabbitMQConsumerName          string `env:"RABBITMQ_CONSUMER_NAME"`
 }
 
 var (
@@ -41,10 +44,12 @@ func loadEnvironmentVars(cfg *Environment) error {
 	return nil
 }
 
-func NewEnvironment() (*Environment, error) {
+func NewEnvironment(args []string) (*Environment, error) {
 	var err error
 	once.Do(func() {
-		godotenv.Load()
+		if args[0] == "file" {
+			godotenv.Load()
+		}
 
 		instance = &Environment{}
 		err = loadEnvironmentVars(instance)
@@ -58,8 +63,4 @@ func NewEnvironment() (*Environment, error) {
 	}
 
 	return instance, nil
-}
-
-func GetInstance() (*Environment, error) {
-	return NewEnvironment()
 }

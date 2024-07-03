@@ -80,8 +80,7 @@ class ImageService(
             throw WebApplicationException("Quality must be between 1 and 100", Status.BAD_REQUEST.statusCode)
         }
 
-        val size = options.size.substringBeforeLast("%").toInt()
-        if (size < 1 || size > 100) {
+        if (options.size < 1 || options.size > 100) {
             throw WebApplicationException("Size must be between 1% and 100%", Status.BAD_REQUEST.statusCode)
         }
 

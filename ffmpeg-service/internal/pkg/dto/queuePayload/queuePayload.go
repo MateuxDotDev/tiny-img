@@ -1,4 +1,4 @@
-package options
+package queuePayload
 
 type QueuePayload struct {
 	OriginalImagePath string `json:"originalImagePath"`

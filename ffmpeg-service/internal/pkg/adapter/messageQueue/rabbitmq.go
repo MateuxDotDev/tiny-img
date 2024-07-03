@@ -28,20 +28,41 @@ func (r *RabbitMQ) Close() {
 	}
 }
 
-func (r *RabbitMQ) Consume(queueName string, consumerId string) (<-chan amqp091.Delivery, error) {
+func (r *RabbitMQ) DeclareQueue(queueName string, routingKey string) error {
 	ch, err := r.conn.Channel()
 	if err != nil {
-		return nil, err
+		return err
 	}
+	defer ch.Close()
 
 	_, err = ch.QueueDeclare(
 		queueName,
-		false,
+		true,
 		false,
 		false,
 		false,
 		nil,
 	)
+	if err != nil {
+		return err
+	}
+
+	err = ch.QueueBind(
+		queueName,
+		routingKey,
+		queueName,
+		false,
+		nil,
+	)
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (r *RabbitMQ) Consume(queueName string, routingKey string, consumerId string) (<-chan amqp091.Delivery, error) {
+	ch, err := r.conn.Channel()
 	if err != nil {
 		return nil, err
 	}
@@ -60,4 +81,27 @@ func (r *RabbitMQ) Consume(queueName string, consumerId string) (<-chan amqp091.
 	}
 
 	return msgs, nil
+}
+
+func (r *RabbitMQ) Publish(exchangeName string, routingKey string, body []byte) error {
+	ch, err := r.conn.Channel()
+	if err != nil {
+		return err
+	}
+
+	err = ch.Publish(
+		exchangeName,
+		routingKey,
+		false,
+		false,
+		amqp091.Publishing{
+			ContentType: "application/json",
+			Body:        body,
+		},
+	)
+	if err != nil {
+		return err
+	}
+
+	return nil
 }

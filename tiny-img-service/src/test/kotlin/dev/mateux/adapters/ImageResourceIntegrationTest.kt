@@ -91,7 +91,7 @@ class ImageResourceIntegrationTest {
         // Arrange
         val payload = mapOf(
             "quality" to 50,
-            "size" to "50%",
+            "size" to 50,
             "format" to "webp"
         )
 
@@ -112,7 +112,7 @@ class ImageResourceIntegrationTest {
         // Arrange
         val payload = mapOf(
             "quality" to 50,
-            "size" to "50%",
+            "size" to 50,
             "format" to "webp"
         )
 
@@ -132,7 +132,7 @@ class ImageResourceIntegrationTest {
         // Arrange
         val payload = mapOf(
             "quality" to 50,
-            "size" to "50%",
+            "size" to 50,
         )
 
         // Act & Assert
@@ -151,7 +151,7 @@ class ImageResourceIntegrationTest {
         // Arrange
         val payload = mapOf(
             "quality" to 50,
-            "size" to "50%",
+            "size" to 50,
             "format" to "mp4"
         )
 
@@ -171,7 +171,7 @@ class ImageResourceIntegrationTest {
         // Arrange
         val payloadA = mapOf(
             "quality" to 101,
-            "size" to "50%",
+            "size" to 50,
             "format" to "webp"
         )
         val payloadB = mapOf(
@@ -198,18 +198,29 @@ class ImageResourceIntegrationTest {
     @Test
     @Authenticate
     @Order(10)
-    fun `should throw an exception if size is not between 1 and 100 percent`() {
+    fun `should throw an exception if size or quality is not between 1 and 100`() {
         // Arrange
         val payloadA = mapOf(
             "quality" to 50,
-            "size" to "101%",
+            "size" to 101,
             "format" to "webp"
         )
         val payloadB = mapOf(
             "quality" to 50,
-            "size" to "0%",
+            "size" to 0,
             "format" to "webp"
         )
+        val payloadC =mapOf(
+            "quality" to 0,
+            "size" to 50,
+            "format" to "webp"
+        )
+        val payloadD =mapOf(
+            "quality" to 101,
+            "size" to 50,
+            "format" to "webp"
+        )
+
 
         // Act & Assert
         given()
@@ -221,6 +232,18 @@ class ImageResourceIntegrationTest {
         given()
             .contentType(ContentType.JSON)
             .body(payloadB)
+            .`when`().post("/image/${images.first()}/optimize")
+            .then()
+            .statusCode(Status.BAD_REQUEST.statusCode)
+        given()
+            .contentType(ContentType.JSON)
+            .body(payloadC)
+            .`when`().post("/image/${images.first()}/optimize")
+            .then()
+            .statusCode(Status.BAD_REQUEST.statusCode)
+        given()
+            .contentType(ContentType.JSON)
+            .body(payloadD)
             .`when`().post("/image/${images.first()}/optimize")
             .then()
             .statusCode(Status.BAD_REQUEST.statusCode)

@@ -1,0 +1,48 @@
+name: FFmpeg Service - Build
+
+on:
+  push:
+    paths:
+      - 'ffmpeg-service/**'
+    branches:
+      - dev
+
+concurrency: 
+  group: ${{ github.head_ref }}
+  cancel-in-progress: true
+
+jobs:
+  docker:
+    name: Dockerize application
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
+        working-directory: ./ffmpeg-service-service
+    steps:
+      - name: Check out the repository
+        uses: actions/checkout@v4
+
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v3
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Login to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Extract project version from version.txt
+        run: |
+          APP_VERSION=$(cat version.txt)
+          echo "APP_VERSION=$APP_VERSION" >> $GITHUB_ENV
+
+      - name: Build and push
+        uses: docker/build-push-action@v6
+        with:
+          context: ./ffmpeg-service-service
+          push: true
+          tags: mateuxlucax/tiny-img:ffmpeg-service-service-dev,mateuxlucax/tiny-img:ffmpeg-service-service-dev-${{ env.APP_VERSION }}
